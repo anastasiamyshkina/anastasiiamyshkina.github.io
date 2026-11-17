@@ -1,0 +1,2616 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AI Portal — product and service case study</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geologica:wght@700&family=Manrope:wght@400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #f0f2f5;
+      --bg-soft: #f4f6f8;
+      --ink: #000000;
+      --muted: #6b7280;
+      --line: rgba(0, 0, 0, 0.08);
+      --accent: #ff3347;
+      --accent-dark: #e02d3f;
+      --blue: #707f8e;
+      --card: #ffffff;
+      --shadow: 0 24px 80px rgba(0, 0, 0, 0.08);
+      --font-heading: "Geologica", sans-serif;
+      --font-body: "Manrope", sans-serif;
+      --h1: clamp(30px, 3.6vw, 48px);
+      --h2: clamp(24px, 2.8vw, 38px);
+      --h3: clamp(18px, 2vw, 26px);
+      --text-lg: clamp(16px, 1.35vw, 19px);
+      --text-md: 15px;
+      --text-sm: 13px;
+      --text-xs: 12px;
+      --metric: clamp(44px, 5.5vw, 72px);
+      --num: clamp(36px, 4vw, 52px);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 82% 5%, rgba(255, 255, 255, 0.92), transparent 26rem),
+        linear-gradient(180deg, var(--bg), #f6f8fa 46%, var(--bg));
+      font-family: var(--font-body);
+      font-weight: 400;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .page {
+      overflow: hidden;
+      position: relative;
+    }
+
+    .grain {
+      pointer-events: none;
+      position: fixed;
+      inset: 0;
+      opacity: 0.1;
+      background-image:
+        radial-gradient(rgba(0, 0, 0, 0.06) 0.8px, transparent 0.8px);
+      background-size: 14px 14px;
+      mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.35), transparent 82%);
+      z-index: 0;
+    }
+
+    .topbar-nav-only {
+      justify-content: flex-end;
+    }
+
+    .topbar {
+      position: relative;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 18px 28px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(240, 242, 245, 0.88);
+      backdrop-filter: blur(18px);
+    }
+
+    .logo {
+      display: inline-flex;
+      align-items: center;
+      line-height: 0;
+    }
+
+    .logo img {
+      display: block;
+      height: 28px;
+      width: auto;
+    }
+
+    .nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 16px;
+      color: var(--muted);
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .nav a:hover {
+      color: var(--ink);
+    }
+
+    section {
+      position: relative;
+      z-index: 1;
+      min-height: auto;
+      padding: 64px clamp(22px, 5vw, 56px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      border-bottom: 1px solid var(--line);
+      overflow: hidden;
+    }
+
+    .eyebrow {
+      margin: 0 0 18px;
+      color: var(--muted);
+      font-family: var(--font-body);
+      font-size: var(--text-xs);
+      font-weight: 500;
+      letter-spacing: 0.04em;
+    }
+
+    h1,
+    h2,
+    h3 {
+      margin: 0;
+      font-family: var(--font-heading);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 0.98;
+    }
+
+    h1 {
+      max-width: 860px;
+      font-size: var(--h1);
+      text-transform: uppercase;
+      line-height: 1.05;
+    }
+
+    h2 {
+      max-width: 1040px;
+      font-size: var(--h2);
+      text-transform: uppercase;
+      line-height: 1.06;
+    }
+
+    h3 {
+      font-size: var(--h3);
+      line-height: 1.1;
+    }
+
+    p {
+      max-width: 720px;
+      color: var(--muted);
+      font-family: var(--font-body);
+      font-size: var(--text-lg);
+      font-weight: 400;
+      line-height: 1.45;
+    }
+
+    .accent {
+      display: inline-block;
+      padding: 0.06em 0.1em 0.04em;
+      color: white;
+      background: var(--accent);
+      font-family: var(--font-heading);
+      letter-spacing: -0.03em;
+      line-height: 1;
+    }
+
+    .hero {
+      min-height: auto;
+      padding-top: 72px;
+      padding-bottom: 72px;
+    }
+
+    .hero-copy {
+      position: relative;
+      z-index: 1;
+      max-width: 900px;
+    }
+
+    .hero-sub {
+      margin-top: 20px;
+      max-width: 760px;
+      font-size: var(--text-lg);
+    }
+
+    .inline-cta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      align-items: center;
+      margin-top: 42px;
+      padding-top: 28px;
+      border-top: 1px solid var(--line);
+    }
+
+    .inline-cta p {
+      margin: 0;
+      max-width: none;
+      font-size: 16px;
+    }
+
+    .offer-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 24px;
+      margin-top: 52px;
+      max-width: 1180px;
+    }
+
+    .offer-card {
+      min-height: 260px;
+      padding: 28px;
+      border: 1px solid var(--line);
+      background: var(--card);
+      box-shadow: 0 12px 46px rgba(0, 0, 0, 0.05);
+    }
+
+    .offer-card h3 {
+      margin-bottom: 14px;
+      font-size: var(--h3);
+    }
+
+    .offer-card p {
+      margin: 0;
+      font-size: var(--text-md);
+    }
+
+    .infra-grid,
+    .support-grid,
+    .exclusion-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 24px;
+      margin-top: 52px;
+      max-width: 1180px;
+    }
+
+    .infra-card,
+    .support-card,
+    .exclusion-card {
+      padding: 28px;
+      border: 1px solid var(--line);
+      background: var(--card);
+    }
+
+    .infra-card h3,
+    .support-card h3,
+    .exclusion-card h3 {
+      margin-bottom: 12px;
+      font-size: var(--h3);
+    }
+
+    .infra-card p,
+    .support-card p,
+    .exclusion-card p,
+    .infra-card li,
+    .support-card li,
+    .exclusion-card li {
+      margin: 0;
+      color: var(--muted);
+      font-size: var(--text-md);
+      line-height: 1.35;
+    }
+
+    .infra-card ul,
+    .support-card ul,
+    .exclusion-card ul {
+      display: grid;
+      gap: 10px;
+      margin: 0;
+      padding-left: 20px;
+    }
+
+    .guardrails-note {
+      max-width: 980px;
+      margin-top: 28px;
+      padding: 22px 24px;
+      border-left: 6px solid var(--accent);
+      background: rgba(255, 255, 255, 0.66);
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.4;
+    }
+
+    .guardrails-note strong {
+      color: var(--ink);
+    }
+
+    .arch-policy-note {
+      max-width: 980px;
+      margin-top: 24px;
+      padding: 18px 20px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.58);
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.4;
+    }
+
+    .package-seats {
+      margin-bottom: 18px;
+      color: var(--ink);
+      font-size: 18px;
+      font-weight: 800;
+    }
+
+    .security-note {
+      margin-top: 16px;
+      padding: 14px 16px;
+      border-left: 4px solid var(--accent);
+      background: rgba(255, 51, 71, 0.06);
+      color: var(--ink);
+      font-size: 15px;
+      line-height: 1.35;
+    }
+
+    .pilot-exit {
+      margin-top: 36px;
+      max-width: 980px;
+      padding: 28px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.66);
+    }
+
+    .pilot-exit h3 {
+      margin-bottom: 12px;
+      font-size: var(--h3);
+    }
+
+    .pilot-exit p,
+    .pilot-exit li {
+      color: var(--muted);
+      font-size: var(--text-md);
+      line-height: 1.4;
+    }
+
+    .pilot-exit ul {
+      display: grid;
+      gap: 10px;
+      margin: 16px 0 0;
+      padding-left: 20px;
+    }
+
+    .client-needs {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 20px;
+      margin-top: 52px;
+      max-width: 1180px;
+    }
+
+    .client-needs .card {
+      min-height: 180px;
+    }
+
+    .client-needs .card p {
+      font-size: 16px;
+    }
+
+    .contact-shell {
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+      gap: 28px;
+      margin-top: 42px;
+      max-width: 980px;
+    }
+
+    .contact-card {
+      padding: 28px;
+      border: 1px solid rgba(8, 9, 13, 0.1);
+      background: rgba(255, 255, 255, 0.72);
+    }
+
+    .contact-card h3 {
+      margin-bottom: 14px;
+      font-size: var(--h3);
+    }
+
+    .contact-list {
+      display: grid;
+      gap: 12px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .contact-list li {
+      color: var(--ink);
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .contact-list a {
+      color: var(--accent-dark);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .contact-steps {
+      display: grid;
+      gap: 12px;
+      margin: 0;
+      padding-left: 20px;
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.35;
+    }
+
+    .funnel-note {
+      max-width: 900px;
+      margin-top: 22px;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.4;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 38px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 14px 22px;
+      border: 1px solid var(--ink);
+      color: var(--ink);
+      background: transparent;
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      transition: 0.2s ease;
+    }
+
+    .button.primary {
+      border-color: var(--accent);
+      color: white;
+      background: var(--accent);
+    }
+
+    .button:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      .button,
+      .reveal {
+        transition: none;
+      }
+
+      .button:hover {
+        transform: none;
+      }
+    }
+
+    .brand-deco {
+      position: absolute;
+      z-index: 0;
+      pointer-events: none;
+      user-select: none;
+      filter: drop-shadow(0 14px 32px rgba(0, 0, 0, 0.1));
+    }
+
+    .brand-deco.coil {
+      right: max(-40px, -2vw);
+      top: 18%;
+      width: min(26vw, 280px);
+      height: auto;
+      opacity: 0.72;
+    }
+
+    .brand-deco.glass {
+      right: max(24px, 4vw);
+      top: 50%;
+      transform: translateY(-50%);
+      width: min(22vw, 220px);
+      height: auto;
+      opacity: 0.55;
+    }
+
+    .grid-3,
+    .grid-4,
+    .grid-2 {
+      display: grid;
+      gap: 24px;
+      margin-top: 58px;
+    }
+
+    .grid-3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .grid-4 {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .grid-2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .card {
+      min-height: 220px;
+      padding: 28px;
+      border: 1px solid var(--line);
+      background: var(--card);
+      box-shadow: 0 12px 46px rgba(0, 0, 0, 0.05);
+    }
+
+    .wide-card {
+      max-width: 1180px;
+      min-height: 190px;
+    }
+
+    .section-lead {
+      max-width: 820px;
+      margin-top: 16px;
+    }
+
+    .rwplus-note {
+      max-width: 900px;
+      margin-top: 28px;
+      color: var(--muted);
+      font-size: var(--text-md);
+      line-height: 1.45;
+    }
+
+    .team-dev-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 40px;
+      max-width: 1180px;
+    }
+
+    .team-dev-card {
+      padding: 20px 22px;
+      border: 1px solid var(--line);
+      background: var(--card);
+      min-height: 0;
+    }
+
+    .team-dev-card h3 {
+      margin-bottom: 8px;
+      font-size: 17px;
+      line-height: 1.15;
+    }
+
+    .team-dev-card p {
+      margin: 0;
+      max-width: none;
+      font-size: var(--text-sm);
+      line-height: 1.4;
+    }
+
+    .team-dev-type {
+      display: inline-flex;
+      margin-bottom: 10px;
+      padding: 7px 10px 6px;
+      background: var(--accent);
+      color: white;
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      line-height: 1;
+      text-transform: uppercase;
+    }
+
+    .company-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .company-pills span {
+      padding: 10px 13px 9px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.7);
+      color: var(--ink);
+      font-size: 14px;
+      font-weight: 850;
+      line-height: 1;
+    }
+
+    .num {
+      display: block;
+      margin-bottom: 28px;
+      color: var(--accent);
+      font-family: var(--font-heading);
+      font-size: var(--num);
+      font-weight: 700;
+      letter-spacing: -0.05em;
+      line-height: 0.86;
+    }
+
+    .problem-intro {
+      max-width: 780px;
+      margin-top: 22px;
+      color: var(--muted);
+      font-size: var(--text-lg);
+      line-height: 1.35;
+    }
+
+    .problem-grid {
+      margin-top: 44px;
+    }
+
+    .problem-grid .card {
+      min-height: 190px;
+    }
+
+    .problem-card-label {
+      display: inline-flex;
+      margin-bottom: 18px;
+      padding: 7px 10px 6px;
+      background: var(--accent);
+      color: white;
+      font-family: var(--font-body);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      line-height: 1;
+      text-transform: uppercase;
+    }
+
+    .problem-card-label.value {
+      background: var(--blue);
+    }
+
+    .problem-group-title {
+      margin: 36px 0 20px;
+      max-width: 720px;
+      color: var(--ink);
+      font-family: var(--font-heading);
+      font-size: clamp(16px, 1.8vw, 22px);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+    }
+
+    .pilot-team {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 28px;
+      max-width: 980px;
+      align-items: start;
+    }
+
+    .pilot-team .card {
+      min-height: auto;
+      padding: 18px 20px;
+    }
+
+    .pilot-team .card h3 {
+      margin-bottom: 10px;
+      font-size: clamp(17px, 1.5vw, 20px);
+    }
+
+    .pilot-team .card p {
+      margin: 0;
+      color: var(--ink);
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    .pilot-team .solution-tag {
+      margin-bottom: 12px;
+      font-size: 12px;
+    }
+
+    .case-package-minimal {
+      padding: 22px 24px;
+      border: 1px solid var(--line);
+      background: var(--card);
+    }
+
+    .case-package-minimal h3 {
+      display: inline-flex;
+      align-items: center;
+      margin: 0 0 18px;
+      padding: 10px 14px 9px;
+      border: 0;
+      background: var(--accent);
+      color: white;
+      font-family: var(--font-heading);
+      font-size: clamp(18px, 1.6vw, 22px);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+    }
+
+    .case-line {
+      display: grid;
+      grid-template-columns: 88px 1fr;
+      gap: 12px 16px;
+      padding: 10px 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .case-line:first-of-type {
+      border-top: 0;
+      padding-top: 0;
+    }
+
+    .case-line dt {
+      margin: 0;
+      color: var(--accent-dark);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      line-height: 1.4;
+      text-transform: uppercase;
+    }
+
+    .case-line dd {
+      margin: 0;
+      color: var(--ink);
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+    .package-fee {
+      margin: 0 0 16px;
+      color: var(--ink);
+      font-size: var(--text-md);
+      font-weight: 700;
+    }
+
+    .infra-inline {
+      margin-top: 18px;
+      padding-top: 18px;
+      border-top: 1px solid var(--line);
+    }
+
+    .infra-inline h4 {
+      margin: 0 0 10px;
+      font-family: var(--font-heading);
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    .infra-inline ul {
+      margin: 0;
+      padding-left: 18px;
+      color: var(--muted);
+      font-size: var(--text-md);
+      line-height: 1.5;
+    }
+
+    .lead-case,
+    .ask-help-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .lead-case .card,
+    .ask-help-grid .card {
+      height: 100%;
+    }
+
+    .internal-note {
+      margin-top: 18px;
+      padding: 14px 16px;
+      border-left: 3px solid var(--accent);
+      background: rgba(255, 51, 71, 0.06);
+      color: var(--muted);
+      font-size: var(--text-md);
+      line-height: 1.5;
+    }
+
+    .interaction-hint {
+      display: block;
+      max-width: 820px;
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 1.35;
+    }
+
+    .card h3 {
+      margin-bottom: 14px;
+      font-size: var(--h3);
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+    }
+
+    .solution-tag {
+      display: inline-flex;
+      margin-bottom: 18px;
+      padding: 7px 10px 6px;
+      background: var(--accent);
+      color: white;
+      font-family: var(--font-body);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      line-height: 1;
+      text-transform: uppercase;
+    }
+
+    .card p,
+    .card li {
+      color: var(--muted);
+      font-size: var(--text-md);
+      line-height: 1.4;
+    }
+
+    .statement {
+      min-height: auto;
+      overflow: hidden;
+    }
+
+    .statement::before {
+      content: "";
+      position: absolute;
+      right: 7vw;
+      top: 8vh;
+      width: min(36vw, 360px);
+      height: min(36vw, 360px);
+      background:
+        linear-gradient(to right, transparent calc(50% - 21px), #ebecee calc(50% - 21px), #ebecee calc(50% + 21px), transparent calc(50% + 21px)),
+        linear-gradient(to bottom, transparent calc(50% - 21px), #ebecee calc(50% - 21px), #ebecee calc(50% + 21px), transparent calc(50% + 21px));
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .statement > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .statement h2 {
+      max-width: 980px;
+      font-size: var(--h2);
+      text-transform: uppercase;
+    }
+
+    .statement-copy {
+      max-width: 760px;
+      margin-top: 24px;
+      color: var(--muted);
+      font-size: var(--text-lg);
+      line-height: 1.35;
+    }
+
+    .mixed-heading {
+      max-width: 980px;
+      text-transform: none;
+    }
+
+    .mixed-heading .caps {
+      display: block;
+      font-family: var(--font-heading);
+      font-size: var(--h2);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.05;
+      text-transform: uppercase;
+    }
+
+    .mixed-heading .normal {
+      display: block;
+      max-width: 760px;
+      margin-top: 12px;
+      color: var(--muted);
+      font-family: var(--font-body);
+      font-size: var(--text-lg);
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      line-height: 1.25;
+    }
+
+    .question-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(320px, 430px);
+      gap: 28px;
+      margin-top: 44px;
+      align-items: start;
+      max-width: 1180px;
+    }
+
+    .question-list {
+      display: grid;
+      gap: 18px;
+      max-width: 980px;
+    }
+
+    .question {
+      width: 100%;
+      padding: 22px 26px;
+      border-left: 9px solid var(--accent);
+      border-top: 0;
+      border-right: 0;
+      border-bottom: 0;
+      background: rgba(255, 255, 255, 0.56);
+      color: var(--ink);
+      font: inherit;
+      font-size: var(--text-md);
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      line-height: 1.25;
+      text-align: left;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .question:hover,
+    .question.active {
+      background: white;
+      box-shadow: var(--shadow);
+      transform: translateX(8px);
+    }
+
+    .question-result {
+      position: sticky;
+      top: 96px;
+      padding: 28px;
+      border: 1px solid rgba(255, 51, 71, 0.28);
+      background: rgba(255, 255, 255, 0.68);
+      box-shadow: 0 18px 62px rgba(21, 34, 51, 0.12);
+    }
+
+    .question-result h3 {
+      margin-bottom: 12px;
+      font-size: var(--h3);
+    }
+
+    .question-result p {
+      margin: 0;
+      font-size: var(--text-md);
+    }
+
+    .question-result .result-label {
+      display: inline-block;
+      margin-bottom: 14px;
+      padding: 8px 12px;
+      color: white;
+      background: var(--accent);
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 36px;
+    }
+
+    .pill {
+      padding: 12px 16px;
+      border: 1px solid rgba(8, 9, 13, 0.14);
+      background: rgba(255, 255, 255, 0.45);
+      color: var(--blue);
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .scenario {
+      width: 100%;
+      position: relative;
+      min-height: 210px;
+      padding-top: 42px;
+      border: 1px solid rgba(8, 9, 13, 0.1);
+      color: inherit;
+      font: inherit;
+      text-align: left;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .scenario::before {
+      content: "";
+      position: absolute;
+      top: 26px;
+      left: 28px;
+      width: 54px;
+      height: 7px;
+      background: var(--accent);
+    }
+
+    .scenario:hover,
+    .scenario.active {
+      transform: translateY(-5px);
+      border-color: rgba(255, 51, 71, 0.45);
+      background: rgba(255, 255, 255, 0.82);
+      box-shadow: var(--shadow);
+    }
+
+    .scenario-layout {
+      display: grid;
+      gap: 24px;
+      margin-top: 52px;
+      align-items: start;
+    }
+
+    .scenario-intro {
+      font-size: clamp(16px, 1.45vw, 20px);
+    }
+
+    .scenario-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .scenario-panel {
+      min-height: auto;
+      padding: 30px;
+      border: 1px solid rgba(255, 51, 71, 0.28);
+      background: rgba(255, 255, 255, 0.72);
+      box-shadow: var(--shadow);
+    }
+
+    .scenario-panel h3 {
+      margin-bottom: 14px;
+      font-size: var(--h3);
+    }
+
+    .scenario-panel p {
+      margin: 0 0 18px;
+      font-size: 18px;
+    }
+
+    .scenario-panel ul {
+      display: grid;
+      gap: 12px;
+      margin: 18px 0 0;
+      padding-left: 18px;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.35;
+    }
+
+    .scenario-tag {
+      display: inline-block;
+      margin-bottom: 16px;
+      padding: 8px 12px;
+      color: white;
+      background: var(--accent);
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .demo-shell {
+      display: grid;
+      grid-template-columns: 330px 1fr;
+      gap: 28px;
+      margin-top: 52px;
+      align-items: stretch;
+    }
+
+    .demo-tabs {
+      display: grid;
+      gap: 12px;
+    }
+
+    .demo-tab {
+      padding: 18px 20px;
+      border: 1px solid rgba(8, 9, 13, 0.12);
+      background: rgba(255, 255, 255, 0.44);
+      color: var(--muted);
+      font: inherit;
+      font-weight: 800;
+      text-align: left;
+      cursor: pointer;
+      transition: 0.18s ease;
+    }
+
+    .demo-tab:hover,
+    .demo-tab.active {
+      color: var(--ink);
+      background: white;
+      border-color: var(--accent);
+      transform: translateX(4px);
+    }
+
+    .demo-stage {
+      min-height: 520px;
+      padding: 28px;
+      background: rgba(255, 255, 255, 0.66);
+      border: 1px solid rgba(8, 9, 13, 0.12);
+      box-shadow: var(--shadow);
+    }
+
+    #demo-copy {
+      max-width: 680px;
+      font-size: 16px;
+      line-height: 1.35;
+    }
+
+    .placeholder {
+      display: grid;
+      place-items: center;
+      min-height: 310px;
+      margin-top: 22px;
+      border: 2px dashed rgba(255, 51, 71, 0.45);
+      background:
+        linear-gradient(135deg, rgba(255, 51, 71, 0.08), rgba(111, 129, 149, 0.08)),
+        rgba(233, 238, 246, 0.7);
+      text-align: center;
+    }
+
+    .placeholder strong {
+      display: block;
+      margin-bottom: 8px;
+      font-size: var(--h3);
+      letter-spacing: -0.03em;
+    }
+
+    .placeholder span {
+      color: var(--muted);
+      font-size: var(--text-md);
+    }
+
+    .demo-video {
+      display: block;
+      width: 100%;
+      min-height: 310px;
+      max-height: 520px;
+      margin-top: 22px;
+      border: 1px solid rgba(8, 9, 13, 0.12);
+      background: #0b0f16;
+      object-fit: contain;
+      box-shadow: 0 18px 60px rgba(21, 34, 51, 0.18);
+    }
+
+    .arch {
+      margin-top: 52px;
+      display: grid;
+      grid-template-columns: 1fr 1.1fr 1fr;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .arch-column {
+      display: grid;
+      gap: 12px;
+    }
+
+    .arch-node {
+      padding: 13px 14px;
+      border: 1px solid rgba(8, 9, 13, 0.14);
+      background: rgba(255, 255, 255, 0.68);
+      color: var(--blue);
+      font-size: 14px;
+      font-weight: 800;
+      text-align: center;
+    }
+
+    .arch-interactive {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(300px, 380px);
+      gap: 28px;
+      margin-top: 48px;
+      align-items: start;
+    }
+
+    .arch-map {
+      position: relative;
+      display: grid;
+      grid-template-columns: 1fr 1.05fr 1fr;
+      gap: 18px;
+      padding: 22px;
+      border: 1px solid var(--line);
+      background:
+        radial-gradient(rgba(8, 9, 13, 0.08) 0.8px, transparent 0.8px),
+        rgba(255, 255, 255, 0.4);
+      background-size: 14px 14px;
+      box-shadow: var(--shadow);
+    }
+
+    .arch-group {
+      display: grid;
+      gap: 10px;
+      align-content: start;
+    }
+
+    .arch-group-title {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .arch-button {
+      min-height: 42px;
+      padding: 10px 12px;
+      border: 1px solid rgba(8, 9, 13, 0.12);
+      background: rgba(255, 255, 255, 0.78);
+      color: var(--blue);
+      font: inherit;
+      font-size: 13px;
+      font-weight: 800;
+      text-align: center;
+      cursor: pointer;
+      transition: 0.18s ease;
+    }
+
+    .arch-button:hover,
+    .arch-button.active {
+      color: var(--ink);
+      border-color: var(--accent);
+      background: white;
+      transform: translateY(-2px);
+      box-shadow: 0 12px 34px rgba(21, 34, 51, 0.12);
+    }
+
+    .arch-button.core {
+      min-height: 96px;
+      color: white;
+      background: var(--ink);
+      border-color: var(--ink);
+      font-size: var(--text-sm);
+      letter-spacing: -0.03em;
+    }
+
+    .arch-button.accent {
+      color: var(--ink);
+      background: rgba(255, 51, 71, 0.13);
+      border-color: rgba(255, 51, 71, 0.34);
+    }
+
+    .arch-arrow {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 800;
+      text-align: center;
+    }
+
+    .arch-details {
+      position: sticky;
+      top: 96px;
+      padding: 28px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.72);
+      box-shadow: var(--shadow);
+    }
+
+    .arch-details h3 {
+      margin-bottom: 12px;
+      font-size: var(--h3);
+      letter-spacing: -0.03em;
+    }
+
+    .arch-details p {
+      margin: 0 0 18px;
+      font-size: var(--text-md);
+    }
+
+    .arch-details dl {
+      display: grid;
+      gap: 14px;
+      margin: 0;
+    }
+
+    .arch-details dt {
+      color: var(--ink);
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .arch-details dd {
+      margin: 4px 0 0;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.35;
+    }
+
+    .arch-center {
+      position: relative;
+      display: grid;
+      place-items: center;
+      min-height: 520px;
+    }
+
+    .arch-core {
+      position: relative;
+      z-index: 2;
+      width: min(100%, 360px);
+      min-height: 190px;
+      padding: 28px;
+      display: grid;
+      place-items: center;
+      color: white;
+      background: var(--ink);
+      text-align: center;
+      box-shadow: var(--shadow);
+    }
+
+    .arch-core strong {
+      display: block;
+      font-size: var(--h2);
+      letter-spacing: -0.04em;
+      line-height: 0.98;
+    }
+
+    .arch-core span {
+      margin-top: 12px;
+      color: rgba(255, 255, 255, 0.66);
+      font-size: var(--text-sm);
+    }
+
+    .arch-ring {
+      position: absolute;
+      inset: 28px;
+      border: 1px solid rgba(255, 51, 71, 0.42);
+      border-radius: 50%;
+    }
+
+    .arch-ring:nth-child(2) {
+      inset: 78px;
+      border-color: rgba(111, 129, 149, 0.34);
+      transform: rotate(18deg);
+    }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0;
+      margin-top: 52px;
+      align-items: end;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .metric {
+      padding: 30px clamp(16px, 3vw, 36px);
+      border-right: 1px solid var(--line);
+    }
+
+    .metric:last-child {
+      border-right: 0;
+    }
+
+    .metrics.rwplus-metrics {
+      margin-top: 40px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .metrics.rwplus-metrics .metric {
+      border-right: 1px solid var(--line);
+    }
+
+    .metrics.rwplus-metrics .metric:nth-child(2n) {
+      border-right: 0;
+    }
+
+    .metrics.rwplus-metrics .metric:nth-child(-n+2) {
+      border-bottom: 1px solid var(--line);
+    }
+
+    .metrics.rwplus-metrics .metric:last-child {
+      border-right: 0;
+    }
+
+    .metric strong {
+      display: block;
+      color: var(--accent);
+      font-family: var(--font-heading);
+      font-size: var(--metric);
+      font-weight: 700;
+      letter-spacing: -0.06em;
+      line-height: 0.82;
+    }
+
+    .metric span {
+      display: block;
+      margin-top: 10px;
+      color: var(--muted);
+      font-family: var(--font-body);
+      font-size: var(--text-sm);
+      font-weight: 400;
+      line-height: 1.35;
+    }
+
+    .steps {
+      display: grid;
+      gap: 16px;
+      margin-top: 50px;
+      max-width: 1080px;
+    }
+
+    .step {
+      display: grid;
+      grid-template-columns: 92px 1fr;
+      gap: 20px;
+      align-items: center;
+      padding: 20px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.52);
+    }
+
+    .step strong {
+      color: var(--accent);
+      font-size: 32px;
+      letter-spacing: -0.05em;
+    }
+
+    .step h3 {
+      margin-bottom: 4px;
+      font-size: var(--h3);
+    }
+
+    .step-title {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 4px;
+    }
+
+    .step-duration {
+      flex: 0 0 auto;
+      padding: 6px 10px 5px;
+      background: var(--accent);
+      color: white;
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 0.06em;
+      line-height: 1;
+      text-transform: uppercase;
+    }
+
+    .step p {
+      margin: 0;
+      font-size: var(--text-md);
+    }
+
+    .pilot-summary {
+      max-width: 760px;
+      margin-top: 22px;
+      color: var(--muted);
+      font-size: var(--text-lg);
+      line-height: 1.35;
+    }
+
+    .packages {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 24px;
+      margin-top: 52px;
+      max-width: 1180px;
+    }
+
+    .package {
+      position: relative;
+      min-height: 520px;
+      padding: 34px;
+      border: 1px solid var(--line);
+      background: var(--card);
+      box-shadow: 0 16px 54px rgba(0, 0, 0, 0.05);
+    }
+
+    .package::before {
+      content: "";
+      display: block;
+      width: 86px;
+      height: 8px;
+      margin-bottom: 28px;
+      background: var(--accent);
+    }
+
+    .package h3 {
+      margin-bottom: 18px;
+      font-size: var(--h2);
+      letter-spacing: -0.055em;
+      line-height: 0.92;
+    }
+
+    .package-price {
+      display: inline-block;
+      margin-bottom: 10px;
+      padding: 8px 14px 7px;
+      color: white;
+      background: var(--accent);
+      font-family: var(--font-heading);
+      font-size: clamp(22px, 2.4vw, 30px);
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      line-height: 0.95;
+    }
+
+    .package-term {
+      margin-bottom: 26px;
+      color: var(--ink);
+      font-size: var(--text-md);
+      font-weight: 700;
+    }
+
+    .package ul {
+      display: grid;
+      gap: 12px;
+      margin: 0;
+      padding-left: 20px;
+      color: var(--muted);
+      font-size: var(--text-md);
+      line-height: 1.4;
+    }
+
+    .package-note {
+      max-width: 900px;
+      margin-top: 24px;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.4;
+    }
+
+    .case-packages {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 24px;
+      margin-top: 52px;
+      max-width: 1180px;
+    }
+
+    .case-package {
+      padding: 30px;
+      border: 1px solid var(--line);
+      background: var(--card);
+      box-shadow: 0 14px 48px rgba(0, 0, 0, 0.05);
+    }
+
+    .case-package h3 {
+      margin-bottom: 16px;
+      font-size: var(--h3);
+      letter-spacing: -0.045em;
+      line-height: 0.98;
+    }
+
+    .case-request {
+      margin-bottom: 18px;
+      padding: 16px;
+      border-top: 6px solid var(--accent);
+      background: rgba(255, 51, 71, 0.07);
+      color: var(--ink);
+      font-size: 16px;
+      font-weight: 650;
+      line-height: 1.28;
+    }
+
+    .case-meta {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin: 20px 0;
+    }
+
+    .case-meta span {
+      padding: 13px 14px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.68);
+      color: var(--ink);
+      font-size: 14px;
+      font-weight: 900;
+      line-height: 1.15;
+      text-transform: uppercase;
+    }
+
+    .case-meta .case-price {
+      border-color: var(--line);
+      background: var(--bg-soft);
+      color: var(--ink);
+      font-weight: 700;
+      text-transform: none;
+    }
+
+    #case-packages .case-request {
+      border-top: 1px solid var(--line);
+      background: var(--bg-soft);
+      font-weight: 500;
+    }
+
+    #case-packages .security-note {
+      border-left-color: var(--blue);
+      background: rgba(112, 127, 142, 0.08);
+    }
+
+    .case-package p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.35;
+    }
+
+    .cta {
+      min-height: auto;
+      overflow: hidden;
+      background: linear-gradient(180deg, #f6f8fa, var(--bg));
+    }
+
+    .cta > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .cta h2 {
+      max-width: 980px;
+    }
+
+    .reveal {
+      opacity: 1;
+      transform: none;
+      transition: 0.7s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .hero .reveal {
+      opacity: 1;
+      transform: none;
+    }
+
+    @media (max-width: 980px) {
+      .nav {
+        display: none;
+      }
+
+      section {
+        min-height: auto;
+        padding: 74px 22px;
+      }
+
+      .grid-3,
+      .grid-4,
+      .grid-2,
+      .question-layout,
+      .scenario-layout,
+      .scenario-grid,
+      .demo-shell,
+      .arch-interactive,
+      .arch,
+      .team-dev-grid,
+      .packages,
+      .case-packages,
+      .metrics,
+      .offer-grid,
+      .infra-grid,
+      .support-grid,
+      .exclusion-grid,
+      .client-needs,
+      .contact-shell,
+      .pilot-team,
+      .lead-case,
+      .ask-help-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .arch-center {
+        min-height: 320px;
+      }
+
+      .metric {
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .metric:last-child {
+        border-bottom: 0;
+      }
+
+      .brand-deco {
+        display: none;
+      }
+    }
+  
+    .logo-icon {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--ink);
+      text-decoration: none;
+    }
+
+    .logo-label {
+      font-family: var(--font-heading);
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
+    .pitch-disclaimer {
+      margin: 0 0 28px;
+      padding: 14px 18px;
+      border-left: 3px solid var(--accent);
+      background: rgba(255, 51, 71, 0.06);
+      color: var(--muted);
+      font-size: var(--text-md);
+      line-height: 1.5;
+    }
+
+    .demo-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .demo-story-card {
+      height: 100%;
+    }
+
+    .demo-story-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: var(--text-md);
+      line-height: 1.45;
+    }
+
+    @media (max-width: 980px) {
+      .demo-cards-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="grain"></div>
+
+    <header class="topbar topbar-nav-only">
+      <nav class="nav" aria-label="Navigation">
+        <a href="#offer">Product</a>
+        <a href="#problem">Problem</a>
+        <a href="#solution">Solution</a>
+        <a href="#demos">Use cases</a>
+        <a href="#packages">Service</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero">
+        <div class="hero-copy reveal">
+          <p class="pitch-disclaimer">Portfolio case: product concept of a corporate AI portal and its implementation service model. Anonymised, without commercial terms or client data.</p>
+          <p class="eyebrow">Product · AI Portal</p>
+          <h1>Corporate <span class="accent">AI service on your infrastructure</span></h1>
+          <p class="hero-sub">One interface for models, documents, the knowledge base and work systems. SaaS or on-premise: data, access and policies stay with the client.</p>
+          <div class="hero-actions">
+            <a class="button primary" href="#demos">Use cases</a>
+            <a class="button" href="#packages">Service model</a>
+          </div>
+        </div>
+      </section>
+
+      <section id="offer">
+        <p class="eyebrow">Product and service</p>
+        <h2 class="reveal">A platform implemented in the client’s infrastructure</h2>
+        <p class="reveal">The product is a platform inside the client’s infrastructure. The service configures it for their processes, systems and security policies: one use case with a KPI first, then scaling module by module.</p>
+        <div class="offer-grid reveal">
+          <article class="offer-card">
+            <span class="solution-tag">Core</span>
+            <h3>AI Portal</h3>
+            <p>A ready platform on Open WebUI: models, document search, MCP integrations, roles and audit. SaaS or on-premise.</p>
+          </article>
+          <article class="offer-card">
+            <span class="solution-tag">Implementation</span>
+            <h3>A solution per use case</h3>
+            <p>Tailored to the client: transcription, chat with a local model, AI over the knowledge base, call analytics, a task assistant — with a clear scope of work and KPIs.</p>
+          </article>
+          <article class="offer-card">
+            <span class="solution-tag">Optional</span>
+            <h3>Consulting and support</h3>
+            <p>Process diagnostics, a use-case map and post-launch support: models, indexes, integrations.</p>
+          </article>
+        </div>
+        <p class="funnel-note reveal">Service path: diagnostics → one use case live → scaling → support.</p>
+      </section>
+
+      <section id="problem">
+        <p class="eyebrow">Problem</p>
+        <h2 class="reveal">AI is already in use.</h2>
+        <h2 class="reveal">But is it under control?</h2>
+        <p class="problem-intro reveal">AI is already widely used — and it brings risks for the company. The AI Portal turns them into value: richer context, control regained and time freed up for teams.</p>
+        <h3 class="problem-group-title reveal">Risks</h3>
+        <div class="grid-3 problem-grid">
+          <article class="card reveal">
+            <span class="problem-card-label">Risk 01</span>
+            <h3>Leaks into public AI chats</h3>
+            <p>Employees paste confidential data, contracts and client databases into public AI services.</p>
+          </article>
+          <article class="card reveal">
+            <span class="problem-card-label">Risk 02</span>
+            <h3>AI is used chaotically</h3>
+            <p>Departments try different tools, but the business can’t see the full picture: risks, cost and real impact.</p>
+          </article>
+          <article class="card reveal">
+            <span class="problem-card-label">Risk 03</span>
+            <h3>Routine eats focus</h3>
+            <p>Summaries, status hunting and preparing materials take hours from strong specialists every day.</p>
+          </article>
+        </div>
+        <h3 class="problem-group-title reveal">Value</h3>
+        <div class="grid-3 problem-grid">
+          <article class="card reveal">
+            <span class="problem-card-label value">Value 01</span>
+            <h3>One context from all systems</h3>
+            <p>Knowledge base, documents, CRM and task trackers in one interface, no switching between windows.</p>
+          </article>
+          <article class="card reveal">
+            <span class="problem-card-label value">Value 02</span>
+            <h3>Scalability</h3>
+            <p>A ready foundation instead of months of integration: add use cases as modules and scale across departments.</p>
+          </article>
+          <article class="card reveal">
+            <span class="problem-card-label value">Value 03</span>
+            <h3>Expertise for everyone</h3>
+            <p>Policies, templates and best practices built into skills and prompts, so juniors work closer to expert level.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="statement">
+        <p class="eyebrow">Is corporate AI right for you?</p>
+        <h2 class="reveal">WHEN YOU NEED</h2>
+        <h2 class="reveal">CORPORATE AI</h2>
+        <p class="statement-copy reveal">Three typical signals that a client needs a corporate AI portal — and how the product answers them.</p>
+        <p class="interaction-hint reveal">Click a question on the left to see how the AI Portal addresses it.</p>
+        <div class="question-layout reveal">
+          <div class="question-list">
+            <button class="question active" data-question="dataRisk" type="button">Your employees work with contracts and client data — and you need them to stay out of public AI?</button>
+            <button class="question" data-question="contextGap" type="button">Serving a client means opening more than two systems — and it takes time?</button>
+            <button class="question" data-question="auditGap" type="button">You can’t tell who uses which models, files and prompts — and you need transparent control?</button>
+          </div>
+          <article class="question-result" aria-live="polite">
+            <span class="result-label" id="question-label">Relevant</span>
+            <h3 id="question-title">You need a secure entry point to AI</h3>
+            <p id="question-copy">The AI Portal provides a controlled interface: roles, policies, audit and rules for sensitive data.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="solution">
+        <p class="eyebrow">Solution</p>
+        <h2 class="reveal"><span class="accent">A ready-made pack</span> — a platform, not theory</h2>
+        <p class="reveal">A reference architecture on Open WebUI, LiteLLM, Qdrant and Keycloak: a modular stack configured to the client’s security policies and integrations.</p>
+        <p class="guardrails-note reveal"><strong>Like LEGO.</strong> Not every client gets every block — we plug in what’s needed: MCP connectors, skills, RAG, SSO, guardrails, local or hybrid inference, masking — per the security policy.</p>
+        <div class="grid-3">
+          <article class="card reveal">
+            <span class="solution-tag">Data</span>
+            <h3>Company perimeter</h3>
+            <p>Sensitive documents and client data are processed inside a controlled perimeter.</p>
+          </article>
+          <article class="card reveal">
+            <span class="solution-tag">Models</span>
+            <h3>Hybrid AI</h3>
+            <p>Local models for sensitive tasks; external ones where policy allows. Optional, not required.</p>
+          </article>
+          <article class="card reveal">
+            <span class="solution-tag">Integrations</span>
+            <h3>MCP modules</h3>
+            <p>ERP, task trackers, knowledge bases, documents and APIs connect as modules — no rewriting the platform.</p>
+          </article>
+          <article class="card reveal">
+            <span class="solution-tag">Access</span>
+            <h3>SSO and audit</h3>
+            <p>Who uses which models, databases and tools is configurable and transparent for audit.</p>
+          </article>
+          <article class="card reveal">
+            <span class="solution-tag">Masking</span>
+            <h3>Data masking</h3>
+            <p>Option for cloud models: hide sensitive fields before a request leaves the perimeter.</p>
+          </article>
+          <article class="card reveal">
+            <span class="solution-tag">Guardrails</span>
+            <h3>Guardrails</h3>
+            <p>Filtering prompt injection and unsafe model actions per the client’s security policy.</p>
+          </article>
+        </div>
+
+        <h3 class="problem-group-title reveal" style="margin-top: 56px;">Platform architecture</h3>
+        <p class="reveal">Typical setup: the client’s servers, data and policies. Behind the interface: integration services, RAG, authorisation and inference.</p>
+        <p class="interaction-hint reveal">Click a component to see its purpose and value.</p>
+        <div class="arch-interactive reveal">
+          <div class="arch-map" aria-label="Interactive AI Portal architecture diagram">
+            <div class="arch-group">
+              <div class="arch-group-title">MCP and authorisation</div>
+              <button class="arch-button" data-arch="playwrightMcp" type="button">playwright-mcp</button>
+              <button class="arch-button" data-arch="oauth" type="button">OAuth2.1</button>
+              <button class="arch-button" data-arch="googleWorkspace" type="button">Google Workspace MCP</button>
+              <button class="arch-button" data-arch="atlassianCrm" type="button">CRM / ERP MCP</button>
+              <button class="arch-button" data-arch="atlassianSd" type="button">Service Desk MCP</button>
+              <button class="arch-button" data-arch="atlassianWiki" type="button">Knowledge base MCP</button>
+              <button class="arch-button" data-arch="crmErpMcp" type="button">Universal MCP (CRM / ERP)</button>
+              <button class="arch-button" data-arch="activeDirectory" type="button">Active Directory (AD)</button>
+            </div>
+
+            <div class="arch-group">
+              <div class="arch-group-title">Service core</div>
+              <button class="arch-button" data-arch="mcpHost" type="button">MCP host</button>
+              <div class="arch-arrow">tools and permissions meet in the interface</div>
+              <button class="arch-button core active" data-arch="openWebui" type="button">Open WebUI</button>
+              <button class="arch-button" data-arch="keycloak" type="button">Keycloak (SSO)</button>
+              <button class="arch-button" data-arch="pgsql" type="button">PgSQL</button>
+              <button class="arch-button" data-arch="qdrant" type="button">Qdrant (RAG)</button>
+              <button class="arch-button" data-arch="openterminal" type="button">Openterminal</button>
+              <button class="arch-button" data-arch="isspeech" type="button">isspeech</button>
+              <div class="arch-arrow">STT / TTS for voice use cases</div>
+            </div>
+
+            <div class="arch-group">
+              <div class="arch-group-title">Models, files and external services</div>
+              <button class="arch-button" data-arch="redis" type="button">Redis</button>
+              <button class="arch-button" data-arch="s3" type="button">S3 / object storage</button>
+              <button class="arch-button" data-arch="tika" type="button">Tika (PDF import)</button>
+              <button class="arch-button" data-arch="playwrightLoader" type="button">Playwright (web loader)</button>
+              <button class="arch-button" data-arch="litellm" type="button">LiteLLM</button>
+              <button class="arch-button" data-arch="localInference" type="button">Local models (office)</button>
+              <button class="arch-button" data-arch="vllm" type="button">Local models (data centre / GPU)</button>
+              <button class="arch-button" data-arch="openaiProxy" type="button">External model proxy</button>
+              <button class="arch-button" data-arch="openaiLlm" type="button">External LLMs (per policy)</button>
+              <button class="arch-button" data-arch="dalle" type="button">Image generation (per policy)</button>
+              <button class="arch-button" data-arch="sglang" type="button">sglang.diffusion (images)</button>
+            </div>
+          </div>
+
+          <aside class="arch-details" aria-live="polite">
+            <p class="eyebrow" id="arch-category">Service core</p>
+            <h3 id="arch-title">Open WebUI</h3>
+            <p id="arch-summary">A single entry point for employees: chat, history, files, roles and access to connected tools.</p>
+            <dl>
+              <div>
+                <dt>Why</dt>
+                <dd id="arch-why">So employees work with AI, documents and corporate systems from one interface.</dd>
+              </div>
+              <div>
+                <dt>How it works</dt>
+                <dd id="arch-how">Takes the request, checks access, calls models, RAG and MCP tools, then returns an answer with context.</dd>
+              </div>
+              <div>
+                <dt>Value for the client</dt>
+                <dd id="arch-value">The company gets managed AI use instead of scattered public chats.</dd>
+              </div>
+            </dl>
+          </aside>
+        </div>
+      </section>
+
+      <section id="scenarios">
+        <p class="eyebrow">Use cases</p>
+        <h2 class="reveal">From a business problem to a product module</h2>
+        <p class="scenario-intro reveal">Typical user stories: how a client pain point becomes an AI Portal feature and a block of the commercial proposal.</p>
+        <p class="interaction-hint reveal">Click a card to see how the use case is packaged as a service.</p>
+        <div class="scenario-layout reveal">
+          <div class="scenario-grid">
+            <button class="card scenario active" data-scenario="knowledge" type="button">
+              <h3>Knowledge is hard to find</h3>
+              <p>Answers are scattered across the wiki, PDFs, DOCX files, policies and work documents.</p>
+            </button>
+            <button class="card scenario" data-scenario="documents" type="button">
+              <h3>Manual document work</h3>
+              <p>Contracts, specs and reports are read and compared by hand.</p>
+            </button>
+            <button class="card scenario" data-scenario="tasks" type="button">
+              <h3>Need data from amoCRM and Bitrix</h3>
+              <p>A CRM/ERP MCP connects amoCRM and Bitrix and returns data according to the user’s access level.</p>
+            </button>
+            <button class="card scenario" data-scenario="sales" type="button">
+              <h3>Routine in sales and marketing</h3>
+              <p>Proposals, emails, research and content are rebuilt from scratch every time.</p>
+            </button>
+            <button class="card scenario" data-scenario="tech" type="button">
+              <h3>Routine in IT and analytics</h3>
+              <p>SQL, logs, specs, summaries and prototypes take a lot of manual work.</p>
+            </button>
+            <button class="card scenario" data-scenario="voice" type="button">
+              <h3>Audio, scans and screenshots</h3>
+              <p>Need transcripts, OCR, key points and structure.</p>
+            </button>
+          </div>
+          <aside class="scenario-panel" aria-live="polite">
+            <span class="scenario-tag" id="scenario-tag">Example use case</span>
+            <h3 id="scenario-title">Knowledge base search</h3>
+            <p id="scenario-copy">Pain: answers are scattered across the wiki, PDFs and policies. Solution: RAG over Confluence and documents — answers with a source link.</p>
+            <ul id="scenario-list">
+              <li>Feature: RAG over the wiki and documents, answer with a source link.</li>
+              <li>Roles: support, HR, product, delivery, account.</li>
+              <li>Service: knowledge base indexing, access rights, KPI on search time.</li>
+            </ul>
+          </aside>
+        </div>
+      </section>
+
+      <section id="demos">
+        <p class="eyebrow">Features</p>
+        <h2 class="reveal">Use cases in the AI Portal interface</h2>
+        <p class="reveal">Short user stories: what the user does, which product modules are involved and how it’s packaged for implementation.</p>
+        <div class="demo-cards-grid reveal">
+          <article class="card demo-story-card">
+            <span class="solution-tag">Documents</span>
+            <h3>PDF / DOCX / XLSX analysis</h3>
+            <p>The user uploads a contract or report. The portal parses it (Tika), summarises it, flags risks and answers questions grounded in document fragments — without sending the file to a public chat.</p>
+          </article>
+          <article class="card demo-story-card">
+            <span class="solution-tag">RAG</span>
+            <h3>Knowledge base search</h3>
+            <p>A natural-language question → semantic search over the wiki and policies (Qdrant + knowledge base MCP). The answer comes with a quote and a link to the source page, respecting access rights.</p>
+          </article>
+          <article class="card demo-story-card">
+            <span class="solution-tag">Skills</span>
+            <h3>Prompts and skills by role</h3>
+            <p>A library of ready-made scenarios for HR, IT, sales and legal: one click runs a typical request with corporate context. Expertise packaged into reusable no-code templates.</p>
+          </article>
+          <article class="card demo-story-card">
+            <span class="solution-tag">MCP</span>
+            <h3>Task tracker and processes</h3>
+            <p>“Status of task X” → MCP to Jira or similar: the ticket, comments, blockers. The model writes a summary and suggests a next step for the stand-up or a manager report.</p>
+          </article>
+          <article class="card demo-story-card">
+            <span class="solution-tag">MCP</span>
+            <h3>Email</h3>
+            <p>Find threads, summarise them, draft a reply. The MCP sees only emails within the user’s OAuth token — the same principle as for CRM and documents.</p>
+          </article>
+          <article class="card demo-story-card">
+            <span class="solution-tag">MCP</span>
+            <h3>Google Docs and Sheets</h3>
+            <p>Find a team document, condense it, suggest edits or a section structure. Integrated via Google Workspace MCP with no copying into external services.</p>
+          </article>
+          <article class="card demo-story-card">
+            <span class="solution-tag">Compliance</span>
+            <h3>Legal</h3>
+            <p>Contract version comparison, a risk checklist, questions for the counterparty. Local or hybrid inference for documents with personal and commercial data.</p>
+          </article>
+        </div>
+        <div class="inline-cta reveal">
+          <p>Each use case is a separate module in the commercial proposal: stack, integrations and KPIs are agreed with the client.</p>
+          <a class="button primary" href="#packages">Service model</a>
+        </div>
+      </section>
+
+      <section id="team-capabilities">
+        <p class="eyebrow">Expertise</p>
+        <h2 class="reveal">The team behind such a product</h2>
+        <p class="reveal section-lead">Typical expertise needed to design, implement and support a corporate AI service in the client’s infrastructure — not tied to any specific organisation.</p>
+        <div class="team-dev-grid reveal">
+          <article class="team-dev-card">
+            <span class="team-dev-type">AI</span>
+            <h3>Corporate AI</h3>
+            <p>LLM platform, RAG, MCP, SSO/RBAC, guardrails, on-premise operations.</p>
+          </article>
+          <article class="team-dev-card">
+            <span class="team-dev-type">Platform</span>
+            <h3>Low-code and portals</h3>
+            <p>Internal services, CRM processes, corporate interfaces.</p>
+          </article>
+          <article class="team-dev-card">
+            <span class="team-dev-type">Integrations</span>
+            <h3>CRM and ERP</h3>
+            <p>Connecting accounting systems, trackers, service desk and internal APIs.</p>
+          </article>
+          <article class="team-dev-card">
+            <span class="team-dev-type">Data</span>
+            <h3>Data pipelines</h3>
+            <p>Connectors, data exports, data preparation for analytics and AI.</p>
+          </article>
+          <article class="team-dev-card">
+            <span class="team-dev-type">Product</span>
+            <h3>Client solutions</h3>
+            <p>Industry portals, analytics, automation tied to business KPIs.</p>
+          </article>
+          <article class="team-dev-card">
+            <span class="team-dev-type">Automation</span>
+            <h3>Bots and triggers</h3>
+            <p>Mailings, surveys, flows in messengers and work systems.</p>
+          </article>
+          <article class="team-dev-card">
+            <span class="team-dev-type">Infrastructure</span>
+            <h3>DevOps</h3>
+            <p>Deployment, monitoring and updates in the client’s infrastructure.</p>
+          </article>
+          <article class="team-dev-card">
+            <span class="team-dev-type">Custom development</span>
+            <h3>Custom modules</h3>
+            <p>Integrations, STT / request analytics, internal tools.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="packages">
+        <p class="eyebrow">Monetisation model</p>
+        <h2 class="reveal">SaaS, on-premise or consulting</h2>
+        <div class="packages">
+          <article class="package reveal">
+            <h3>SaaS</h3>
+
+<ul>
+              <li>Quick start with no infrastructure on the client’s side.</li>
+              <li>Access to the AI Portal, base models and knowledge base use cases.</li>
+              <li>Setup: roles, workspaces, first skills.</li>
+              
+              <li>Monthly fee — support, updates, incidents.</li>
+            </ul>
+          </article>
+          <article class="package reveal">
+            <h3>On-premise</h3>
+<ul>
+              <li>AI Portal deployed in the client’s infrastructure.</li>
+              <li>Local models, RAG, SSO/RBAC and audit.</li>
+              <li>Connecting corporate knowledge, documents and MCP tools.</li>
+              <li>Access policies for models, data and integrations.</li>
+              <li>Training key users and supporting the launch.</li>
+            </ul>
+            <div class="infra-inline">
+              <h4>Infrastructure requirements</h4>
+              <ul>
+                
+                
+                
+                <li>Own data centre, colocation or a certified local cloud.</li>
+                <li>Qwen / Llama-class models for sensitive tasks; external models per the security policy.</li>
+              </ul>
+            </div>
+          </article>
+          <article class="package reveal">
+            <h3>Consulting</h3>
+<ul>
+              <li>Process review: where AI will help and where it won’t.</li>
+              <li>A map of use cases, data sources and systems to connect.</li>
+              <li>Roadmap: roles, KPIs, integrations, stages.</li>
+              <li>Can be an entry point before SaaS or on-premise.</li>
+            </ul>
+          </article>
+        </div>
+        <p class="package-note reveal">Scope of work and support are agreed per project.</p>
+      </section>
+
+      <section id="case-packages">
+        <p class="eyebrow">Package examples</p>
+        <h2 class="reveal">Where to start: one use case with a KPI</h2>
+        <p class="reveal">The first sale is one use case with a measurable KPI, not the whole platform.</p>
+        <div class="case-packages">
+          <article class="case-package-minimal reveal">
+            <h3>Chat with a local model</h3>
+            <dl>
+              <div class="case-line">
+                <dt>Request</dt>
+                <dd>A corporate chat with no data leaving the company.</dd>
+              </div>
+              <div class="case-line">
+                <dt>Solution</dt>
+                <dd>One interface, local inference, roles and access policies.</dd>
+              </div>
+              <div class="case-line">
+                <dt>Stack</dt>
+                <dd>Open WebUI, LiteLLM, Qwen / Llama-class, GPU, Keycloak.</dd>
+              </div>
+            </dl>
+          </article>
+          <article class="case-package-minimal reveal">
+            <h3>AI over the knowledge base</h3>
+            <dl>
+              <div class="case-line">
+                <dt>Request</dt>
+                <dd>Questions about policies — answers with a source link.</dd>
+              </div>
+              <div class="case-line">
+                <dt>Solution</dt>
+                <dd>RAG over the wiki and documents, respecting access rights.</dd>
+              </div>
+              <div class="case-line">
+                <dt>Stack</dt>
+                <dd>Qdrant, Confluence MCP, Tika, Open WebUI, LiteLLM.</dd>
+              </div>
+            </dl>
+          </article>
+          <article class="case-package-minimal reveal">
+            <h3>AI for tasks and tickets</h3>
+            <dl>
+              <div class="case-line">
+                <dt>Request</dt>
+                <dd>Context on a task or ticket, its status, the next step.</dd>
+              </div>
+              <div class="case-line">
+                <dt>Solution</dt>
+                <dd>MCP to the tracker or Service Desk, summaries and classification.</dd>
+              </div>
+              <div class="case-line">
+                <dt>Stack</dt>
+                <dd>Jira / SD MCP, Open WebUI, LiteLLM, Keycloak.</dd>
+              </div>
+            </dl>
+          </article>
+          <article class="case-package-minimal reveal">
+            <h3>Transcription + summary</h3>
+            <dl>
+              <div class="case-line">
+                <dt>Request</dt>
+                <dd>Meeting and call recordings → transcript, summary, tasks and owners.</dd>
+              </div>
+              <div class="case-line">
+                <dt>Solution</dt>
+                <dd>STT pipeline, summary templates, roles, results stored in the client’s infrastructure.</dd>
+              </div>
+              <div class="case-line">
+                <dt>Stack</dt>
+                <dd>isspeech, Open WebUI, local LLM, S3, Keycloak.</dd>
+              </div>
+            </dl>
+          </article>
+        </div>
+      </section>
+</main>
+  </div>
+
+  <script>
+    const archContent = {
+      openWebui: {
+        category: 'Service core',
+        title: 'Open WebUI',
+        summary: 'A single entry point for employees: chat, history, files, roles and access to connected tools.',
+        why: 'So employees work with AI, documents and corporate systems from one interface.',
+        how: 'Takes the request, checks access, calls models, RAG and MCP tools, then returns an answer with context.',
+        value: 'The company gets managed AI use instead of scattered public chats.'
+      },
+      mcpHost: {
+        category: 'MCP',
+        title: 'MCP host',
+        summary: 'The central point connecting MCP servers to the AI Portal.',
+        why: 'To add new corporate tools without rewriting the product’s logic.',
+        how: 'Receives calls from Open WebUI and routes them to the right MCP server: knowledge base, ERP, client system, Service Desk, Google Workspace or a browser tool.',
+        value: 'New integrations ship faster: you plug in a module instead of building a bot for each system.'
+      },
+      playwrightMcp: {
+        category: 'MCP',
+        title: 'playwright-mcp',
+        summary: 'A tool for controlled AI work with web pages.',
+        why: 'Needed where data is only available through a web interface or public pages.',
+        how: 'AI can open a page, read it, fill in a form or collect data through a browser layer.',
+        value: 'Automates web routine: site monitoring, data collection, status checks and competitor research.'
+      },
+      oauth: {
+        category: 'Access',
+        title: 'OAuth2.1',
+        summary: 'An authorisation standard for secure MCP access to external systems.',
+        why: 'So user passwords aren’t stored and services don’t get excess rights.',
+        how: 'The user or service gets a scoped access token, and the MCP server acts only within its permissions.',
+        value: 'Integrations stay manageable and meet security requirements.'
+      },
+      googleWorkspace: {
+        category: 'Integrations',
+        title: 'Google Workspace MCP',
+        summary: 'Connects to work documents, sheets, drives and other Google Workspace use cases.',
+        why: 'So AI can help with materials that already live in the company workspace.',
+        how: 'The MCP server pulls permitted context from Google Workspace and passes it to the AI Portal for analysis or an answer.',
+        value: 'Employees find and process documents faster without copying them into public AI.'
+      },
+      crmErpMcp: {
+        category: 'Integrations',
+        title: 'Universal MCP (CRM / ERP)',
+        summary: 'Connects to local CRM, ERP and accounting systems through a single MCP layer.',
+        why: 'So AI sees client and operational context from the systems companies actually use.',
+        how: 'The CRM/ERP MCP fetches data within the user’s rights and passes it to the AI Portal for answers, summaries and next steps.',
+        value: 'Sales, account and operations teams use CRM/ERP data without copying between systems.'
+      },
+      atlassianCrm: {
+        category: 'Integrations',
+        title: 'CRM / ERP MCP',
+        summary: 'Integration with client and deal context from corporate systems.',
+        why: 'So AI sees client or project context instead of answering in the abstract.',
+        how: 'Via MCP the AI Portal requests records, statuses and related data and helps draft answers or summaries.',
+        value: 'Sales and account teams prepare for meetings and build the client picture faster.'
+      },
+      atlassianSd: {
+        category: 'Integrations',
+        title: 'Service Desk MCP',
+        summary: 'Integration with Service Desk and user tickets.',
+        why: 'To speed up classification, replies and routing of typical requests.',
+        how: 'AI reads the ticket and suggests a category, priority, reply template or next step.',
+        value: 'Reduces support load and speeds up repetitive tickets.'
+      },
+      atlassianWiki: {
+        category: 'Integrations',
+        title: 'Knowledge base MCP',
+        summary: 'Access to the corporate knowledge base.',
+        why: 'So answers are based on current policies, guides and project docs.',
+        how: 'The AI Portal fetches relevant pages via MCP and uses them as the source for the answer.',
+        value: 'Answers become verifiable: you can open the original source.'
+      },
+      keycloak: {
+        category: 'Security',
+        title: 'Keycloak (SSO)',
+        summary: 'Single sign-on and user session management.',
+        why: 'So employees log in with their corporate account instead of separate passwords.',
+        how: 'Keycloak links the user to roles, groups and access policies in the AI Portal.',
+        value: 'Simplifies enterprise rollout and helps meet security requirements.'
+      },
+      activeDirectory: {
+        category: 'Security',
+        title: 'Active Directory (AD)',
+        summary: 'The corporate source of users, groups and roles.',
+        why: 'So AI Portal permissions match the real org structure and access rights.',
+        how: 'AD provides groups and accounts; Keycloak/SSO uses them to authorise users.',
+        value: 'No need to duplicate users and roles in the AI platform by hand.'
+      },
+      pgsql: {
+        category: 'Data',
+        title: 'PgSQL',
+        summary: 'The service’s main store for structured data.',
+        why: 'Holds history, settings, users, permissions and system entities.',
+        how: 'Open WebUI and related services store metadata and app state in PostgreSQL.',
+        value: 'The service stays manageable, observable and auditable.'
+      },
+      qdrant: {
+        category: 'RAG',
+        title: 'Qdrant (RAG)',
+        summary: 'A vector database for searching documents and the knowledge base.',
+        why: 'So AI answers from corporate sources, not just from the model’s parameters.',
+        how: 'Documents are split into chunks, turned into embeddings and searched by semantic similarity to the query.',
+        value: 'Answers become more accurate and can cite sources.'
+      },
+      openterminal: {
+        category: 'Tools',
+        title: 'Openterminal',
+        summary: 'An environment for technical operations and command-line scenarios.',
+        why: 'Useful for IT, development, log analysis, diagnostics and helper automation.',
+        how: 'Connected as a tool through which AI helps compose commands or analyse output.',
+        value: 'Speeds up technical tasks without a separate product.'
+      },
+      isspeech: {
+        category: 'Multimodality',
+        title: 'isspeech',
+        summary: 'The service connecting the AI Portal to voice use cases.',
+        why: 'To work with audio, not just text.',
+        how: 'Sends audio to STT for transcription and text to TTS to voice the answers.',
+        value: 'Enables call centre, meeting, voice message and voice assistant use cases.'
+      },
+      redis: {
+        category: 'Infrastructure',
+        title: 'Redis',
+        summary: 'Fast storage for cache, queues or temporary state.',
+        why: 'To speed up repeated operations and offload core services.',
+        how: 'Holds short-lived data, job statuses or intermediate context.',
+        value: 'Makes user scenarios faster and more resilient.'
+      },
+      s3: {
+        category: 'Files',
+        title: 'S3 / object storage',
+        summary: 'Object storage for files, attachments and imported documents.',
+        why: 'To keep uploaded materials separate from the application database.',
+        how: 'Open WebUI stores the file in the client’s S3-compatible storage, and workers fetch it for parsing, indexing or analysis.',
+        value: 'Scalable document storage without overloading the app.'
+      },
+      tika: {
+        category: 'Files',
+        title: 'Tika (PDF import)',
+        summary: 'Parses PDFs and office documents into text.',
+        why: 'So AI can work with contracts, specs, policies, presentations and spreadsheets.',
+        how: 'Tika extracts text and metadata, after which the document can be analysed or indexed for RAG.',
+        value: 'Documents become searchable, summarisable and ready for risk checks.'
+      },
+      playwrightLoader: {
+        category: 'Web',
+        title: 'Playwright (web loader)',
+        summary: 'Loads and reads web pages for further analysis.',
+        why: 'Needed for scenarios involving websites, competitors, public pages and web forms.',
+        how: 'Playwright opens the page like a browser, gets the content and passes it to the AI Portal.',
+        value: 'AI can use web sources that aren’t available as a simple API.'
+      },
+      litellm: {
+        category: 'Models',
+        title: 'LiteLLM',
+        summary: 'A single gateway for different LLM providers and local models.',
+        why: 'To avoid lock-in to one model and manage cost, policies and routing.',
+        how: 'Takes requests in one format and routes them to a local, vLLM or external model.',
+        value: 'Hybrid AI: security for sensitive tasks and powerful models where allowed.'
+      },
+      localInference: {
+        category: 'Models',
+        title: 'Local models (office)',
+        summary: 'A local model group for processing inside the client’s office network.',
+        why: 'So sensitive data never leaves the company’s infrastructure.',
+        how: 'LiteLLM routes requests to the local inference group per the security policy.',
+        value: 'Suitable for contracts, internal documents, personal data and policies.'
+      },
+      vllm: {
+        category: 'Models',
+        title: 'Local models (data centre / GPU)',
+        summary: 'High-performance inference in the client’s data centre.',
+        why: 'To scale local models for load and complex corporate scenarios.',
+        how: 'vLLM serves LLM requests with optimised throughput and queuing.',
+        value: 'Delivers performance without sending data to external vendors.'
+      },
+      openaiProxy: {
+        category: 'Models',
+        title: 'External model proxy',
+        summary: 'A controlled gateway to OpenAI-compatible models and image generation.',
+        why: 'So external models are used only where permitted.',
+        how: 'The proxy centralises calls, limits, accounting and routing to OpenAI LLMs or DALL-E.',
+        value: 'Powerful external models without chaotic direct access by employees.'
+      },
+      openaiLlm: {
+        category: 'Models',
+        title: 'External LLMs (per policy)',
+        summary: 'An external language model for tasks where the cloud is allowed and there’s no sensitive data.',
+        why: 'Useful for creative work, text generation and complex reasoning without sensitive data.',
+        how: 'The request goes through openai-proxy or the model gateway, respecting access policies.',
+        value: 'The quality of strong external models without losing central control.'
+      },
+      dalle: {
+        category: 'Image generation',
+        title: 'Image generation (per policy)',
+        summary: 'Image generation for marketing, presentations and creative tasks.',
+        why: 'To handle visual requests inside the same AI interface.',
+        how: 'The user writes a prompt; openai-proxy sends it to DALL-E and returns the result.',
+        value: 'Marketing and product teams get visual concepts faster.'
+      },
+      sglang: {
+        category: 'Image generation',
+        title: 'sglang.diffusion (images)',
+        summary: 'A local or managed image generation setup.',
+        why: 'An alternative to external image models with more control over generation.',
+        how: 'Open WebUI sends the prompt to the diffusion service, which returns an image.',
+        value: 'Visual use cases can grow without full dependence on external services.'
+      }
+    };
+
+    const questionContent = {
+      dataRisk: {
+        label: 'Relevant',
+        title: 'You need a secure entry point to AI',
+        copy: 'The AI Portal provides a controlled interface: roles, policies, audit and rules for sensitive data.'
+      },
+      contextGap: {
+        label: 'Relevant',
+        title: 'You need AI with access to work systems',
+        copy: 'The AI Portal gathers context from the knowledge base, documents, CRM, task tracker and email in one interface.'
+      },
+      auditGap: {
+        label: 'Relevant',
+        title: 'You need transparent control',
+        copy: 'The AI Portal centralises access to models, knowledge bases and MCP tools — requests and integrations are visible for audit.'
+      }
+    };
+
+    const scenarioContent = {
+      knowledge: {
+        tag: 'Example use case',
+        title: 'Knowledge base search',
+        copy: 'Pain: answers are scattered across the wiki, PDFs and policies. Solution: RAG over Confluence and documents — answers with a source link.',
+        items: [
+          'Feature: RAG over the wiki and documents, answer with a source link.',
+          'Roles: support, HR, product, delivery, account.',
+          'Service: knowledge base indexing, access rights, KPI on search time.'
+        ]
+      },
+      documents: {
+        tag: 'Example use case',
+        title: 'Document analysis',
+        copy: 'Pain: contracts and specs are read by hand. Solution: upload a PDF/DOCX, get a summary and risks — including for the legal team.',
+        items: [
+          'Feature: parsing (Tika), Q&A over fragments, risk checklist.',
+          'Roles: legal, finance, procurement, project teams.',
+          'Service: on-prem inference, file retention policies, KPI on analysis time.'
+        ]
+      },
+      tasks: {
+        tag: 'Example use case',
+        title: 'CRM data',
+        copy: 'Pain: client context in amoCRM and Bitrix is scattered. Solution: CRM/ERP MCP — data within access rights.',
+        items: [
+          'Feature: MCP to CRM/ERP, deal summary and next steps.',
+          'Roles: sales, account, operations, department heads.',
+          'Service: OAuth, field mapping, KPI on status preparation.'
+        ]
+      },
+      sales: {
+        tag: 'Example use case',
+        title: 'Sales materials',
+        copy: 'Pain: proposals, emails and research are rebuilt every time. Solution: skills and templates using client context.',
+        items: [
+          'Feature: skills, templates, CRM context during generation.',
+          'Roles: sales, marketing, PR, account management.',
+          'Service: prompt library, guardrails, KPI on material preparation time.'
+        ]
+      },
+      tech: {
+        tag: 'Example use case',
+        title: 'IT and analytics',
+        copy: 'Pain: SQL, logs and specs are handled by hand. Solution: a SQL assistant and summaries of logs and tech docs.',
+        items: [
+          'Feature: Openterminal / SQL assist, log and spec summaries.',
+          'Roles: engineering, analytics, IT, information security.',
+          'Service: role-based tool limits, request audit.'
+        ]
+      },
+      voice: {
+        tag: 'Example use case',
+        title: 'Audio and multimodality',
+        copy: 'Pain: meeting transcripts and summaries are needed. Solution: STT/TTS/OCR turns calls and meetings into structured text.',
+        items: [
+          'Feature: STT (isspeech), summary templates, export to the client’s infrastructure.',
+          'Roles: call centre, HR, support, sales, back office.',
+          'Service: a separate “transcription + summary” module, KPI on processing time.'
+        ]
+      }
+    };
+
+    const questionButtons = document.querySelectorAll('.question');
+    const questionLabel = document.getElementById('question-label');
+    const questionTitle = document.getElementById('question-title');
+    const questionCopy = document.getElementById('question-copy');
+    const scenarioButtons = document.querySelectorAll('.scenario');
+    const scenarioTag = document.getElementById('scenario-tag');
+    const scenarioTitle = document.getElementById('scenario-title');
+    const scenarioCopy = document.getElementById('scenario-copy');
+    const scenarioList = document.getElementById('scenario-list');
+    const archButtons = document.querySelectorAll('.arch-button');
+    const archCategory = document.getElementById('arch-category');
+    const archTitle = document.getElementById('arch-title');
+    const archSummary = document.getElementById('arch-summary');
+    const archWhy = document.getElementById('arch-why');
+    const archHow = document.getElementById('arch-how');
+    const archValue = document.getElementById('arch-value');
+
+    questionButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        const item = questionContent[button.dataset.question];
+        if (!item) return;
+        questionButtons.forEach((node) => node.classList.remove('active'));
+        button.classList.add('active');
+        questionLabel.textContent = item.label;
+        questionTitle.textContent = item.title;
+        questionCopy.textContent = item.copy;
+      });
+    });
+
+    scenarioButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        const item = scenarioContent[button.dataset.scenario];
+        if (!item) return;
+        scenarioButtons.forEach((node) => node.classList.remove('active'));
+        button.classList.add('active');
+        scenarioTag.textContent = item.tag;
+        scenarioTitle.textContent = item.title;
+        scenarioCopy.textContent = item.copy;
+        scenarioList.innerHTML = item.items.map((line) => `<li>${line}</li>`).join('');
+      });
+    });
+
+    archButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        const item = archContent[button.dataset.arch];
+        if (!item) return;
+        archButtons.forEach((node) => node.classList.remove('active'));
+        button.classList.add('active');
+        archCategory.textContent = item.category;
+        archTitle.textContent = item.title;
+        archSummary.textContent = item.summary;
+        archWhy.textContent = item.why;
+        archHow.textContent = item.how;
+        archValue.textContent = item.value;
+      });
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.14 });
+
+    document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+  </script>
+</body>
+</html>

@@ -1,0 +1,534 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Компания в ML-скрининге</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;800&family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  /* Layout: a horizontal deck of 7 full-screen cards, swiped or clicked through; milk and navy alternate as the "page colour". Single deliberate light look. */
+  :root {
+    --milk: #f6f2e9;
+    --milk-2: #ece5d6;
+    --navy: #0f2d69;
+    --navy-deep: #0a1f4a;
+    --sky: #8fb4ff;
+    --ink: #0e1a38;
+    --muted: #5a6582;
+    --muted-on-navy: #b9c6e4;
+    --base: #c8cedb;
+    --line: rgba(15, 45, 105, 0.14);
+    --font-display: "Unbounded", "Arial Black", Arial, sans-serif;
+    --font-body: "Manrope", "Segoe UI", Arial, sans-serif;
+    color-scheme: light;
+  }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; }
+  body { margin: 0; background: var(--milk); color: var(--ink); font-family: var(--font-body); font-size: 16px; line-height: 1.45; overflow: hidden; }
+  button { font: inherit; color: inherit; }
+  a { color: inherit; }
+  :focus-visible { outline: 2px solid var(--sky); outline-offset: 3px; }
+
+  .app { height: 100%; display: flex; flex-direction: column; }
+
+  /* top bar */
+  .bar { flex: none; display: flex; align-items: center; gap: 16px; padding-block: 14px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); background: var(--milk); border-bottom: 1px solid var(--line); transition: background .4s, color .4s; }
+  .bar.dark { background: var(--navy); color: var(--milk); border-color: rgba(255,255,255,.12); }
+  .back { font-size: 13px; font-weight: 800; text-decoration: none; white-space: nowrap; }
+  .progress { flex: 1; display: flex; gap: 6px; }
+  .progress button { flex: 1; height: 5px; border: 0; padding: 0; border-radius: 3px; background: var(--line); cursor: pointer; position: relative; overflow: hidden; }
+  .bar.dark .progress button { background: rgba(255,255,255,.18); }
+  .progress button i { position: absolute; inset: 0; width: 0; background: var(--navy); transition: width .45s; }
+  .bar.dark .progress button i { background: var(--sky); }
+  .progress button.done i { width: 100%; }
+  .count { font-size: 13px; font-weight: 800; font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+  /* deck */
+  .deck { flex: 1; min-height: 0; display: flex; overflow-x: auto; overflow-y: hidden; scroll-snap-type: x mandatory; scroll-behavior: smooth; scrollbar-width: none; overscroll-behavior-x: contain; }
+  .deck::-webkit-scrollbar { display: none; }
+  .slide { flex: 0 0 100%; scroll-snap-align: start; scroll-snap-stop: always; overflow-y: auto; display: flex; }
+  .slide.navy { background: var(--navy); color: var(--milk); }
+  .inner { width: 100%; max-width: 1180px; margin: auto; padding-block: clamp(28px, 5vh, 56px) 96px; padding-left: max(20px, env(safe-area-inset-left, 0px)); padding-right: max(20px, env(safe-area-inset-right, 0px)); }
+
+  .kicker { display: inline-block; margin: 0 0 18px; padding: 6px 12px; border-radius: 999px; font-size: 12px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; background: var(--milk-2); color: var(--navy); }
+  .navy .kicker { background: rgba(255,255,255,.1); color: var(--sky); }
+  h1, h2 { margin: 0; font-family: var(--font-display); font-weight: 800; letter-spacing: -0.035em; line-height: 1.02; text-wrap: balance; }
+  h1 { font-size: clamp(25px, 7vw, 50px); line-height: 1.14; max-width: 14ch; }
+  h2 { font-size: clamp(26px, 3.8vw, 52px); max-width: 20ch; }
+  h3 { margin: 0; font-family: var(--font-display); font-weight: 700; font-size: 18px; letter-spacing: -0.02em; line-height: 1.15; }
+  p { margin: 0; max-width: 58ch; color: var(--muted); font-size: clamp(16px, 1.3vw, 19px); }
+  .navy p { color: var(--muted-on-navy); }
+  .sub { margin-top: 16px; }
+  .mark { background: var(--sky); color: var(--navy-deep); padding: 0 .12em; border-radius: 6px; }
+  .navy .mark { background: var(--milk); color: var(--navy); }
+  .tnum { font-variant-numeric: tabular-nums; }
+
+  /* nav arrows */
+  .arrows { position: fixed; right: max(20px, env(safe-area-inset-right, 0px)); bottom: calc(20px + env(safe-area-inset-bottom, 0px)); display: flex; gap: 8px; z-index: 5; }
+  .arrows button { width: 54px; height: 54px; border-radius: 50%; border: 0; cursor: pointer; background: var(--navy); color: var(--milk); font-size: 22px; font-weight: 800; box-shadow: 0 10px 30px rgba(10,31,74,.25); transition: transform .2s, opacity .2s; }
+  .arrows button:hover { transform: scale(1.06); }
+  .arrows button:disabled { opacity: .3; cursor: default; transform: none; }
+  .arrows.on-navy button { background: var(--milk); color: var(--navy); }
+  .hint { position: fixed; left: max(20px, env(safe-area-inset-left, 0px)); bottom: calc(34px + env(safe-area-inset-bottom, 0px)); font-size: 13px; font-weight: 700; color: var(--muted); z-index: 5; transition: opacity .3s; }
+  .hint.on-navy { color: var(--muted-on-navy); }
+
+  /* 1 hero */
+  .hero-grid { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 40px; align-items: center; }
+  .stats { display: grid; gap: 12px; }
+  .stat { padding: 20px 22px; border-radius: 22px; background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12); }
+  .stat b { display: block; font-family: var(--font-display); font-size: clamp(30px, 3.4vw, 46px); letter-spacing: -0.04em; line-height: 1; color: var(--milk); white-space: nowrap; }
+  .stat b em { font-style: normal; color: var(--sky); }
+  .stat span { display: block; margin-top: 8px; font-size: 14px; color: var(--muted-on-navy); }
+
+  /* 2 idea */
+  .scene { margin-top: 36px; display: grid; grid-template-columns: 1fr auto 1fr auto 1fr; gap: 14px; align-items: center; }
+  .node { padding: 22px; border-radius: 24px; background: #fff; border: 1px solid var(--line); min-height: 150px; display: grid; align-content: start; gap: 8px; transition: transform .35s, box-shadow .35s, opacity .35s; }
+  .node .ic { font-family: var(--font-display); font-size: 30px; line-height: 1; color: var(--navy); }
+  .node p { font-size: 14px; }
+  .node.company { background: var(--navy); color: var(--milk); border-color: var(--navy); }
+  .node.company .ic { color: var(--sky); }
+  .node.company p { color: var(--muted-on-navy); }
+  .link { font-family: var(--font-display); font-size: 26px; color: var(--navy); text-align: center; transition: opacity .35s; }
+  .scene.pj .node.company, .scene.pj .link.l2 { opacity: .18; transform: scale(.96); }
+  .scene.po .node.company { box-shadow: 0 18px 40px rgba(15,45,105,.28); transform: translateY(-4px); }
+  .toggle { margin-top: 26px; display: inline-flex; padding: 5px; border-radius: 999px; background: var(--milk-2); }
+  .toggle button { border: 0; background: transparent; padding: 10px 16px; border-radius: 999px; font-size: 14px; font-weight: 800; cursor: pointer; color: var(--navy); }
+  .toggle button.on { background: var(--navy); color: var(--milk); }
+  .caption { margin-top: 14px; font-size: 15px; font-weight: 700; color: var(--navy); min-height: 2.6em; max-width: 60ch; }
+
+  /* 3 data */
+  .funnel { margin-top: 34px; display: grid; gap: 10px; max-width: 900px; }
+  .frow { display: grid; grid-template-columns: 1fr; gap: 6px; }
+  .frow .lab { display: flex; justify-content: space-between; gap: 12px; font-size: 14px; font-weight: 700; color: var(--muted-on-navy); }
+  .frow .lab b { font-family: var(--font-display); font-size: 22px; color: var(--milk); letter-spacing: -0.03em; }
+  .frow .tube { height: 44px; border-radius: 14px; background: rgba(255,255,255,.08); overflow: hidden; }
+  .frow .tube i { display: block; height: 100%; width: 0; border-radius: 14px; background: var(--sky); transition: width 1s cubic-bezier(.2,.7,.2,1); }
+  .frow:nth-child(1) .tube i { background: rgba(143,180,255,.45); }
+  .frow:nth-child(2) .tube i { background: rgba(143,180,255,.7); }
+  .pills { margin-top: 22px; display: flex; flex-wrap: wrap; gap: 8px; }
+  .pill { padding: 8px 12px; border-radius: 999px; font-size: 13px; font-weight: 700; background: rgba(255,255,255,.08); color: var(--milk); }
+  .pill b { color: var(--sky); }
+
+  /* 4 features */
+  .feat-grid { margin-top: 30px; display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 24px; align-items: start; }
+  .tiles { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .tile { text-align: left; cursor: pointer; padding: 18px; border-radius: 20px; border: 2px solid transparent; background: #fff; display: grid; gap: 6px; transition: transform .2s, border-color .2s; }
+  .tile:hover { transform: translateY(-2px); }
+  .tile .n { font-family: var(--font-display); font-size: 30px; letter-spacing: -0.03em; line-height: 1; color: var(--navy); }
+  .tile .t { font-size: 14px; font-weight: 800; }
+  .tile.co { background: var(--navy); color: var(--milk); }
+  .tile.co .n { color: var(--sky); }
+  .tile.on { border-color: var(--sky); }
+  .tile:not(.co).on { border-color: var(--navy); }
+  .tile.wide { grid-column: span 2; }
+  .tag-s { font-size: 11px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+  .tile.co .tag-s { color: var(--sky); }
+  .fpanel { padding: 24px; border-radius: 24px; background: #fff; border: 1px solid var(--line); min-height: 100%; }
+  .fpanel h3 { font-size: 20px; }
+  .fpanel ul { margin: 14px 0 0; padding: 0; list-style: none; display: grid; gap: 8px; }
+  .fpanel li { font-size: 15px; padding-left: 20px; position: relative; }
+  .fpanel li::before { content: ""; position: absolute; left: 0; top: .5em; width: 9px; height: 9px; border-radius: 50%; background: var(--sky); }
+  .fpanel .eff { margin-top: 16px; padding: 12px 14px; border-radius: 14px; background: var(--milk); font-size: 14px; font-weight: 800; color: var(--navy); }
+  .ratio { margin-top: 18px; display: grid; gap: 8px; }
+  .ratio > div { display: grid; grid-template-columns: 112px 1fr; gap: 10px; align-items: center; font-size: 12px; font-weight: 800; color: var(--muted); }
+  .ratio .rb { display: flex; height: 24px; border-radius: 8px; overflow: hidden; font-size: 11px; }
+  .ratio .rb span { display: flex; align-items: center; padding: 0 8px; }
+  .ratio .rb .a { background: var(--base); color: var(--ink); }
+  .ratio .rb .b { background: var(--navy); color: var(--milk); justify-content: flex-end; }
+
+  /* 5 experiment */
+  .exp { margin-top: 28px; display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: 24px; align-items: start; }
+  .steps { display: grid; gap: 8px; }
+  .step { text-align: left; cursor: pointer; display: grid; grid-template-columns: 38px 1fr; gap: 12px; align-items: center; padding: 14px 16px; border-radius: 18px; border: 0; background: rgba(255,255,255,.07); color: var(--milk); }
+  .step .i { width: 38px; height: 38px; border-radius: 50%; display: grid; place-items: center; font-weight: 800; background: rgba(255,255,255,.12); }
+  .step b { display: block; font-size: 15px; }
+  .step small { display: block; font-size: 12px; color: var(--muted-on-navy); }
+  .step.on { background: var(--milk); color: var(--navy); }
+  .step.on .i { background: var(--navy); color: var(--milk); }
+  .step.on small { color: var(--muted); }
+  .chart { padding: 24px; border-radius: 24px; background: var(--milk); color: var(--ink); }
+  .chart-top { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+  .chart-top .lbl { width: 100%; font-size: 12px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+  .big { font-family: var(--font-display); font-size: clamp(40px, 5vw, 64px); letter-spacing: -0.04em; line-height: 1; color: var(--navy); }
+  .delta { font-size: 15px; font-weight: 800; color: var(--navy); background: var(--sky); padding: 6px 10px; border-radius: 999px; }
+  .rows { margin-top: 20px; display: grid; gap: 10px; }
+  .r { display: grid; grid-template-columns: 112px 1fr 50px; gap: 10px; align-items: center; transition: opacity .4s; }
+  .r .nm { font-size: 13px; font-weight: 800; }
+  .r .tr { height: 26px; border-radius: 8px; background: var(--milk-2); overflow: hidden; }
+  .r .tr i { display: block; height: 100%; width: 0; border-radius: 8px; background: var(--navy); transition: width .8s cubic-bezier(.2,.7,.2,1); }
+  .r:first-child .tr i { background: var(--base); }
+  .r .v { font-size: 13px; font-weight: 800; text-align: right; font-variant-numeric: tabular-nums; }
+  .r.off { opacity: .25; }
+  .axis { display: grid; grid-template-columns: 112px 1fr 50px; gap: 10px; margin-top: 4px; }
+  .axis div { display: flex; justify-content: space-between; font-size: 11px; color: var(--muted); font-variant-numeric: tabular-nums; }
+  .chart .say { margin-top: 14px; font-size: 15px; font-weight: 700; color: var(--navy); min-height: 2.8em; }
+  .replay { margin-top: 12px; border: 1px solid rgba(255,255,255,.3); background: transparent; color: var(--milk); padding: 10px 16px; border-radius: 999px; font-size: 13px; font-weight: 800; cursor: pointer; }
+  .replay:hover { background: rgba(255,255,255,.1); }
+
+  /* 6 result */
+  .res { margin-top: 28px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+  .card { padding: 22px; border-radius: 24px; background: #fff; border: 1px solid var(--line); min-width: 0; }
+  .card h3 { font-size: 16px; }
+  .card .num { margin-top: 10px; font-family: var(--font-display); font-size: clamp(30px, 3.2vw, 44px); letter-spacing: -0.04em; line-height: 1.05; color: var(--navy); white-space: nowrap; }
+  .card .num s { text-decoration: none; color: var(--base); }
+  .card p { font-size: 14px; margin-top: 8px; }
+  .dots { display: grid; grid-template-columns: repeat(20, 1fr); gap: 3px; margin-top: 14px; }
+  .dots i { aspect-ratio: 1; border-radius: 50%; background: var(--milk-2); transition: background .35s; }
+  .dots i.m { background: var(--base); }
+  .dots i.sv { background: var(--navy); }
+  .ages { margin-top: 12px; display: flex; align-items: flex-end; gap: 6px; height: 110px; }
+  .ages div { flex: 1; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; gap: 4px; height: 100%; }
+  .ages i { display: block; width: 100%; border-radius: 6px 6px 2px 2px; background: var(--base); height: 0; transition: height .8s cubic-bezier(.2,.7,.2,1); }
+  .ages div.top i { background: var(--navy); }
+  .ages span { font-size: 10px; font-weight: 800; color: var(--muted); white-space: nowrap; }
+  .legend { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px; font-size: 11px; font-weight: 700; color: var(--muted); }
+  .legend i { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 5px; }
+  .takeaway { margin-top: 18px; padding: 18px 22px; border-radius: 22px; background: var(--navy); color: var(--milk); font-weight: 700; font-size: clamp(15px, 1.3vw, 18px); }
+  .takeaway b { color: var(--sky); }
+
+  /* 7 next */
+  .next-grid { margin-top: 28px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 24px; align-items: start; }
+  .stack { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+  .stack span { padding: 9px 13px; border-radius: 999px; font-size: 13px; font-weight: 800; background: rgba(255,255,255,.1); color: var(--milk); }
+  .flips { display: grid; gap: 8px; margin-top: 14px; }
+  .flip { text-align: left; cursor: pointer; border: 0; border-radius: 18px; padding: 14px 16px; background: rgba(255,255,255,.07); color: var(--milk); display: grid; gap: 4px; }
+  .flip .q { font-size: 15px; font-weight: 800; display: flex; justify-content: space-between; gap: 10px; }
+  .flip .q em { font-style: normal; color: var(--sky); }
+  .flip .a { font-size: 14px; color: var(--muted-on-navy); }
+  .flip .a.to { display: none; }
+  .flip.on { background: var(--milk); color: var(--navy); }
+  .flip.on .q em { color: var(--navy); }
+  .flip.on .a.from { display: none; }
+  .flip.on .a.to { display: block; color: var(--navy); }
+  .label { font-size: 12px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: var(--sky); }
+  .cta { display: inline-block; margin-top: 26px; padding: 14px 20px; border-radius: 999px; background: var(--milk); color: var(--navy); font-weight: 800; text-decoration: none; }
+
+  @media (max-width: 900px) {
+    .hero-grid, .feat-grid, .exp, .next-grid { grid-template-columns: 1fr; }
+    .res { grid-template-columns: 1fr; }
+    .scene { grid-template-columns: 1fr; }
+    .link { transform: rotate(90deg); }
+  }
+  @media (max-width: 520px) {
+    .r, .axis { grid-template-columns: 82px 1fr 46px; }
+    .hint { display: none; }
+    .arrows button { width: 46px; height: 46px; }
+    .node { min-height: 0; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .deck { scroll-behavior: auto; }
+    *, *::before { transition: none !important; }
+  }
+</style>
+
+</head>
+<body>
+<div class="app">
+  <div class="bar dark" id="bar">
+    <a class="back" href="../index.html#cases">← Кейсы</a>
+    <div class="progress" id="progress" aria-label="Слайды"></div>
+    <span class="count tnum" id="count">1 / 7</span>
+  </div>
+
+  <main class="deck" id="deck" tabindex="0" aria-label="Кейс: компания в ML-скрининге">
+
+    <section class="slide navy" data-dark="1" aria-label="1 из 7">
+      <div class="inner hero-grid">
+        <div>
+          <span class="kicker">Магистерская диссертация · ML · HR-tech</span>
+          <h1>Кого позовут на&nbsp;<span class="mark">собеседование</span>?</h1>
+          <p class="sub">Модели отбора резюме смотрят на навыки кандидата и требования вакансии. Мы проверили, что будет, если показать модели ещё и работодателя.</p>
+        </div>
+        <div class="stats">
+          <div class="stat"><b class="tnum">22 062</b><span>реальных отклика с решением работодателя</span></div>
+          <div class="stat"><b class="tnum">0.823 → <em>0.857</em></b><span>ROC-AUC после добавления данных о компании</span></div>
+          <div class="stat"><b class="tnum"><em>⅓</em> решения</b><span>модели держится на признаках компании</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" aria-label="2 из 7">
+      <div class="inner">
+        <span class="kicker">Идея</span>
+        <h2>Продавец в&nbsp;гипермаркете ≠ продавец в&nbsp;семейной лавке</h2>
+        <div class="scene pj" id="scene">
+          <div class="node"><span class="ic">◉</span><h3>Кандидат</h3><p>опыт, навыки, образование, ожидания по зарплате</p></div>
+          <div class="link l1">⟷</div>
+          <div class="node"><span class="ic">▤</span><h3>Вакансия</h3><p>требования, зарплата, график, регион</p></div>
+          <div class="link l2">+</div>
+          <div class="node company"><span class="ic">▲</span><h3>Компания</h3><p>размер, активность, требовательность, рейтинг, как себя описывает</p></div>
+        </div>
+        <div class="toggle" role="group" aria-label="Подход">
+          <button type="button" class="on" data-v="pj">Как обычно</button>
+          <button type="button" data-v="po">Наш подход</button>
+        </div>
+        <p class="caption" id="caption"></p>
+      </div>
+    </section>
+
+    <section class="slide navy" data-dark="1" aria-label="3 из 7">
+      <div class="inner">
+        <span class="kicker">Данные</span>
+        <h2>Два открытых источника в&nbsp;одну таблицу</h2>
+        <p class="sub">Отклики с портала «Работа в России» связали с профилями компаний с hh.ru: по названию, сайту и нечёткому сравнению строк.</p>
+        <div class="funnel" id="funnel">
+          <div class="frow"><div class="lab"><span>Все отклики с «Работы в России»</span><b class="tnum">150 493</b></div><div class="tube"><i data-w="100"></i></div></div>
+          <div class="frow"><div class="lab"><span>Нашли профиль компании на hh.ru (из 96 тыс.)</span><b class="tnum">37 070</b></div><div class="tube"><i data-w="24.6"></i></div></div>
+          <div class="frow"><div class="lab"><span>После очистки и удаления дублей</span><b class="tnum">22 062</b></div><div class="tube"><i data-w="14.7"></i></div></div>
+        </div>
+        <div class="pills">
+          <span class="pill">Приглашают только <b>13%</b> откликов</span>
+          <span class="pill">Отказ — <b>87%</b></span>
+          <span class="pill">Поэтому смотрим на <b>ROC-AUC и PR-AUC</b>, а не на accuracy</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" aria-label="4 из 7">
+      <div class="inner">
+        <span class="kicker">Признаки</span>
+        <h2>118 признаков. Нажми на&nbsp;группу</h2>
+        <div class="feat-grid">
+          <div>
+            <div class="tiles" id="tiles"></div>
+            <div class="ratio">
+              <div><span>Доля признаков</span><span class="rb"><span class="a" style="width:76%">76%</span><span class="b" style="width:24%">24%</span></span></div>
+              <div><span>Доля вклада (SHAP)</span><span class="rb"><span class="a" style="width:65.4%">65%</span><span class="b" style="width:34.6%">35%</span></span></div>
+            </div>
+          </div>
+          <div class="fpanel" id="fpanel" aria-live="polite"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide navy" data-dark="1" aria-label="5 из 7">
+      <div class="inner">
+        <span class="kicker">Эксперимент</span>
+        <h2>Добавляем компанию по&nbsp;кусочкам</h2>
+        <p class="sub">Один и тот же датасет, одни и те же алгоритмы. Меняются только признаки, поэтому вся разница — заслуга данных о компании.</p>
+        <div class="exp">
+          <div>
+            <div class="steps" id="steps"></div>
+            <button class="replay" type="button" id="replay">↻ Проиграть ещё раз</button>
+          </div>
+          <div class="chart">
+            <div class="chart-top"><span class="lbl">ROC-AUC, стекинг</span><span class="big tnum" id="big">0.823</span><span class="delta" id="delta" hidden></span></div>
+            <div class="rows" id="rows"></div>
+            <div class="axis"><span></span><div><span>0.80</span><span>0.82</span><span>0.84</span><span>0.86</span></div><span></span></div>
+            <p class="say" id="say"></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" aria-label="6 из 7">
+      <div class="inner">
+        <span class="kicker">Результат</span>
+        <h2>Компания — это <span class="mark">треть</span> решения</h2>
+        <div class="res">
+          <div class="card">
+            <h3>Точность выросла</h3>
+            <div class="num tnum"><s>0.823</s> 0.857</div>
+            <p>ROC-AUC лучшей модели (стекинг RF + LightGBM + CatBoost). Прирост есть у всех алгоритмов и подтверждён тестом DeLong (p&nbsp;&lt;&nbsp;0.001), bootstrap и кросс-валидацией.</p>
+          </div>
+          <div class="card">
+            <h3>Меньше потерянных кандидатов</h3>
+            <div class="num tnum"><s>50%</s> 43%</div>
+            <div class="dots" id="dots" aria-hidden="true"></div>
+            <div class="legend"><span><i style="background:var(--milk-2)"></i>найдены</span><span><i style="background:var(--navy)"></i>спасены компанией</span><span><i style="background:var(--base)"></i>пропущены</span></div>
+          </div>
+          <div class="card">
+            <h3>Сильнее всего для молодых</h3>
+            <div class="ages" id="ages"></div>
+            <p>Прирост ROC-AUC по возрасту. Когда в резюме мало опыта, контекст компании подсказывает больше.</p>
+          </div>
+        </div>
+        <div class="takeaway">Данные о компании дали <b>+0.034</b> ROC-AUC. Подбор гиперпараметров и балансировка классов — всего по <b>+0.002</b>. Лучше вкладываться в данные, чем в тюнинг.</div>
+      </div>
+    </section>
+
+    <section class="slide navy" data-dark="1" aria-label="7 из 7">
+      <div class="inner">
+        <span class="kicker">Что дальше</span>
+        <h2>Как это развивать</h2>
+        <div class="next-grid">
+          <div>
+            <div class="label">Ограничения → развитие (нажми)</div>
+            <div class="flips">
+              <button class="flip" type="button"><span class="q">Приглашение ≠ найм <em>→</em></span><span class="a from">Видим только первый шаг воронки.</span><span class="a to">Связать с наймом и стажем, проверить на новых периодах.</span></button>
+              <button class="flip" type="button"><span class="q">Профиль на hh.ru — это витрина <em>→</em></span><span class="a from">Рейтинг и описание показывают бренд, а не реальную культуру.</span><span class="a to">Добавить отзывы сотрудников и опросы о культуре.</span></button>
+              <button class="flip" type="button"><span class="q">Простой NLP <em>→</em></span><span class="a from">TF-IDF + SVD не понимает контекст слов.</span><span class="a to">Перейти на эмбеддинги ruBERT.</span></button>
+              <button class="flip" type="button"><span class="q">Нашлись не все компании <em>→</em></span><span class="a from">Связка по названию теряет часть работодателей.</span><span class="a to">Связывать по ИНН/ОГРН.</span></button>
+            </div>
+          </div>
+          <div>
+            <div class="label">Стек</div>
+            <div class="stack"><span>Python</span><span>pandas</span><span>scikit-learn</span><span>LightGBM</span><span>CatBoost</span><span>SHAP</span><span>RapidFuzz</span><span>TF-IDF + SVD</span><span>DeLong · McNemar · bootstrap</span></div>
+            <p class="sub">Та же схема подходит для любого матчинга: продавец и покупатель, исполнитель и заказчик, лид и менеджер. Контекст второй стороны часто даёт больше, чем ещё одна настройка модели.</p>
+            <a class="cta" href="../index.html#cases">← Все кейсы</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="hint on-navy" id="hint">Листай → или стрелки на клавиатуре</div>
+  <div class="arrows on-navy" id="arrows">
+    <button type="button" id="prev" aria-label="Назад">←</button>
+    <button type="button" id="next" aria-label="Дальше">→</button>
+  </div>
+</div>
+
+<script>
+(function () {
+  var deck = document.getElementById('deck');
+  var slides = Array.prototype.slice.call(deck.querySelectorAll('.slide'));
+  var N = slides.length, cur = 0;
+  var prog = document.getElementById('progress');
+  prog.innerHTML = slides.map(function (_, i) { return '<button type="button" aria-label="Слайд ' + (i + 1) + '"><i></i></button>'; }).join('');
+  var pbtn = prog.querySelectorAll('button');
+  var bar = document.getElementById('bar'), arrows = document.getElementById('arrows'), hint = document.getElementById('hint');
+  var prev = document.getElementById('prev'), next = document.getElementById('next');
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function go(i) { i = Math.max(0, Math.min(N - 1, i)); deck.scrollTo({ left: i * deck.clientWidth, behavior: reduce ? 'auto' : 'smooth' }); }
+  prev.addEventListener('click', function () { go(cur - 1); });
+  next.addEventListener('click', function () { go(cur + 1); });
+  pbtn.forEach(function (b, i) { b.addEventListener('click', function () { go(i); }); });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowRight' || e.key === 'PageDown') { e.preventDefault(); go(cur + 1); }
+    if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); go(cur - 1); }
+  });
+  var wheelLock = false;
+  deck.addEventListener('wheel', function (e) {
+    if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;
+    var s = slides[cur];
+    var canDown = s.scrollTop + s.clientHeight < s.scrollHeight - 2, canUp = s.scrollTop > 2;
+    if ((e.deltaY > 0 && canDown) || (e.deltaY < 0 && canUp)) return;
+    e.preventDefault();
+    if (wheelLock || Math.abs(e.deltaY) < 12) return;
+    wheelLock = true; setTimeout(function () { wheelLock = false; }, 700);
+    go(cur + (e.deltaY > 0 ? 1 : -1));
+  }, { passive: false });
+
+  /* 2: idea toggle */
+  var scene = document.getElementById('scene'), caption = document.getElementById('caption');
+  var capText = { pj: 'Обычная модель сравнивает только кандидата и вакансию. Для неё обе вакансии продавца почти одинаковые.', po: 'Мы добавили третью сторону — работодателя. Его размер, требования и описание меняют то, кого реально позовут.' };
+  function view(v) {
+    scene.className = 'scene ' + v; caption.textContent = capText[v];
+    document.querySelectorAll('.toggle button').forEach(function (b) { b.classList.toggle('on', b.dataset.v === v); });
+  }
+  document.querySelectorAll('.toggle button').forEach(function (b) { b.addEventListener('click', function () { view(b.dataset.v); }); });
+  view('pj');
+
+  /* 3: funnel */
+  var tubes = document.querySelectorAll('#funnel .tube i');
+  function fillFunnel() { tubes.forEach(function (el, k) { setTimeout(function () { el.style.width = el.dataset.w + '%'; }, reduce ? 0 : 250 * k); }); }
+
+  /* 4: features */
+  var groups = [
+    { n: 35, t: 'Кандидат', co: false, items: ['Возраст, образование, стаж', 'Число мест работы и навыков', 'Ожидания по зарплате, готовность к переезду', 'Смысл желаемой должности (NLP)'], eff: 'Входит в базовую модель' },
+    { n: 31, t: 'Вакансия', co: false, items: ['Требования к опыту и образованию', 'Зарплатная вилка, график, регион', 'Сколько дней вакансия открыта', 'Смысл текста вакансии (NLP)'], eff: 'Входит в базовую модель' },
+    { n: 24, t: 'Соответствие', co: false, wide: true, items: ['Пересечение навыков, в том числе нечёткое («MS Excel» = «Excel»)', 'Попадание в зарплату, опыт, график, локацию', 'Близость названия должности к вакансии', 'Сводный балл соответствия'], eff: 'Входит в базовую модель' },
+    { n: 14, t: 'Компания: цифры', co: true, items: ['Размер и активность на портале', 'Средние требования компании к опыту', 'Средние зарплаты компании', 'Рейтинг на hh.ru'], eff: '+0.026 ROC-AUC · два главных признака всей модели отсюда' },
+    { n: 14, t: 'Компания: текст', co: true, items: ['Смысл описания компании (TF-IDF + SVD)', 'Насколько описание близко к вакансии', 'Насколько описание близко к навыкам кандидата'], eff: '+0.016 ROC-AUC · сигнал, которого нет в цифрах' }
+  ];
+  var tiles = document.getElementById('tiles'), fpanel = document.getElementById('fpanel');
+  tiles.innerHTML = groups.map(function (g) {
+    return '<button type="button" class="tile' + (g.co ? ' co' : '') + (g.wide ? ' wide' : '') + '" aria-pressed="false"><span class="tag-s">' + (g.co ? 'добавили' : 'база') + '</span><span class="n tnum">' + g.n + '</span><span class="t">' + g.t + '</span></button>';
+  }).join('');
+  var tbtn = tiles.querySelectorAll('.tile');
+  function showG(i) {
+    tbtn.forEach(function (b, j) { b.classList.toggle('on', i === j); b.setAttribute('aria-pressed', i === j); });
+    var g = groups[i];
+    fpanel.innerHTML = '<span class="tag-s">' + (g.co ? 'Компания · добавили' : 'База · кандидат и вакансия') + '</span><h3 style="margin-top:6px">' + g.t + ' · ' + g.n + '</h3><ul>' + g.items.map(function (x) { return '<li>' + x + '</li>'; }).join('') + '</ul><div class="eff">' + g.eff + '</div>';
+  }
+  tbtn.forEach(function (b, i) { b.addEventListener('click', function () { showG(i); }); });
+  showG(3);
+
+  /* 5: experiment */
+  var M = [
+    { nm: 'База', s: 'кандидат + вакансия · 90', v: 0.8231, say: 'Отправная точка. Так работает большинство систем скрининга.' },
+    { nm: '+ цифры', s: '+ размер, активность, рейтинг · 104', v: 0.8488, say: 'Структурные данные о компании сразу дают +0.026.' },
+    { nm: '+ текст', s: '+ описание компании · 104', v: 0.8392, say: 'Одно только описание компании даёт +0.016.' },
+    { nm: 'Всё вместе', s: 'вся компания · 118', v: 0.8572, say: 'Вместе +0.034: цифры и текст дополняют друг друга.' }
+  ];
+  var stepsEl = document.getElementById('steps'), rowsEl = document.getElementById('rows');
+  stepsEl.innerHTML = M.map(function (m, i) { return '<button type="button" class="step"><span class="i">' + (i + 1) + '</span><span><b>' + m.nm + '</b><small>' + m.s + ' признаков</small></span></button>'; }).join('');
+  rowsEl.innerHTML = M.map(function (m) { return '<div class="r"><span class="nm">' + m.nm + '</span><span class="tr"><i></i></span><span class="v"></span></div>'; }).join('');
+  var sbtn = stepsEl.querySelectorAll('.step'), rws = rowsEl.querySelectorAll('.r');
+  var big = document.getElementById('big'), delta = document.getElementById('delta'), say = document.getElementById('say');
+  var k = 3, timer = null;
+  function drawExp() {
+    rws.forEach(function (r, i) {
+      var on = i <= k, w = (M[i].v - 0.80) / 0.06 * 100;
+      r.classList.toggle('off', !on);
+      r.querySelector('i').style.width = on ? w + '%' : '0%';
+      r.querySelector('.v').textContent = on ? M[i].v.toFixed(3) : '';
+    });
+    sbtn.forEach(function (b, i) { b.classList.toggle('on', i === k); });
+    big.textContent = M[k].v.toFixed(3);
+    delta.hidden = k === 0; delta.textContent = '+' + (M[k].v - M[0].v).toFixed(3);
+    say.textContent = M[k].say;
+  }
+  function play() {
+    clearInterval(timer); k = 0; drawExp();
+    if (reduce) { k = 3; drawExp(); return; }
+    timer = setInterval(function () { if (k >= 3) { clearInterval(timer); return; } k++; drawExp(); }, 1300);
+  }
+  sbtn.forEach(function (b, i) { b.addEventListener('click', function () { clearInterval(timer); k = i; drawExp(); }); });
+  document.getElementById('replay').addEventListener('click', play);
+  drawExp();
+
+  /* 6: results */
+  var dots = document.getElementById('dots'), html = '';
+  for (var i = 0; i < 100; i++) html += '<i></i>';
+  dots.innerHTML = html;
+  var dd = dots.querySelectorAll('i');
+  function fillDots(animate) {
+    dd.forEach(function (d, i) { d.className = i >= 50 ? 'm' : ''; });
+    setTimeout(function () { for (var i = 50; i < 57; i++) dd[i].className = 'sv'; }, animate && !reduce ? 700 : 0);
+  }
+  var ages = [['<21', 0.041], ['21–25', 0.050], ['26–30', 0.026], ['31–35', 0.018], ['36–45', 0.027], ['45+', 0.037]];
+  var agesEl = document.getElementById('ages');
+  agesEl.innerHTML = ages.map(function (a) { return '<div' + (a[1] === 0.050 ? ' class="top"' : '') + '><i data-h="' + (a[1] / 0.05 * 80) + '"></i><span>' + a[0] + '</span></div>'; }).join('');
+  var bars = agesEl.querySelectorAll('i');
+  function fillAges() { bars.forEach(function (el) { el.style.height = el.dataset.h + '%'; }); }
+
+  /* 7: flips */
+  document.querySelectorAll('.flip').forEach(function (f) { f.addEventListener('click', function () { f.classList.toggle('on'); }); });
+
+  /* everything is drawn in its final state at rest; slides replay their animation when entered */
+  fillFunnel(); fillDots(false); fillAges();
+  var onEnter = {
+    2: function () { tubes.forEach(function (el) { el.style.width = '0'; }); setTimeout(fillFunnel, 60); },
+    4: play,
+    5: function () { bars.forEach(function (el) { el.style.height = '0'; }); setTimeout(function () { fillDots(true); fillAges(); }, 60); }
+  };
+  var entered = {};
+  function setActive(i) {
+    cur = i;
+    var dark = slides[i].hasAttribute('data-dark');
+    bar.classList.toggle('dark', dark);
+    arrows.classList.toggle('on-navy', dark);
+    hint.classList.toggle('on-navy', dark);
+    hint.style.opacity = i === 0 ? 1 : 0;
+    pbtn.forEach(function (b, j) { b.classList.toggle('done', j <= i); });
+    document.getElementById('count').textContent = (i + 1) + ' / ' + N;
+    prev.disabled = i === 0; next.disabled = i === N - 1;
+    if (!entered[i]) { entered[i] = true; if (onEnter[i]) onEnter[i](); }
+  }
+  var raf = null;
+  deck.addEventListener('scroll', function () {
+    if (raf) return;
+    raf = requestAnimationFrame(function () { raf = null; var i = Math.round(deck.scrollLeft / deck.clientWidth); if (i !== cur) setActive(i); });
+  });
+  window.addEventListener('resize', function () { deck.scrollLeft = cur * deck.clientWidth; });
+  setActive(0);
+})();
+</script>
+</body>
+</html>

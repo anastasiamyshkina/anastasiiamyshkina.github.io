@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Анастасия Мышкина — менеджер продукта</title>
+<meta name="description" content="Анастасия Мышкина — менеджер продукта: AI-сервисы и внутренние B2B-продукты. Резюме и портфолио.">
+<meta property="og:title" content="Анастасия Мышкина — менеджер продукта">
+<meta property="og:description" content="AI-сервисы и внутренние B2B-продукты. Резюме и портфолио.">
+<meta property="og:image" content="photo.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f7f8fa; --card:#ffffff; --text:#1c2430; --muted:#5d6878; --line:#e3e7ee;
+  --accent:#1f3a5f; --accent-2:#2f6fd0; --chip:#eef2f7;
+}
+@media (prefers-color-scheme: dark){
+  :root{--bg:#11151b; --card:#181e27; --text:#e7ebf1; --muted:#9aa5b5; --line:#2a3340; --accent:#9cc0f0; --accent-2:#79a9f0; --chip:#222b37;}
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.6 Inter,system-ui,-apple-system,"Segoe UI",Arial,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:var(--accent-2);text-decoration:none}
+a:hover{text-decoration:underline}
+.wrap{max-width:920px;margin:0 auto;padding:0 20px}
+nav{position:sticky;top:0;z-index:5;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;gap:22px;align-items:center;height:54px;overflow-x:auto;white-space:nowrap}
+nav b{color:var(--accent);margin-right:auto}
+nav a{color:var(--muted);font-size:15px}
+header{padding:56px 0 36px}
+.hero{display:flex;gap:36px;align-items:center}
+.hero img{width:150px;height:150px;border-radius:50%;object-fit:cover;object-position:50% 20%;flex:none;border:4px solid var(--card);box-shadow:0 4px 18px rgba(0,0,0,.08)}
+h1{font-size:40px;line-height:1.15;margin:0 0 6px;color:var(--accent);letter-spacing:-.5px}
+.role{font-size:19px;color:var(--muted);margin:0 0 18px}
+.contacts{display:flex;flex-wrap:wrap;gap:8px}
+.btn{display:inline-block;padding:7px 14px;border-radius:999px;background:var(--card);border:1px solid var(--line);color:var(--text);font-size:14.5px}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+@media (prefers-color-scheme: dark){.btn.primary{color:#11151b}}
+.btn{transition:background .15s,color .15s,border-color .15s}
+.btn:hover,.btn:focus-visible,.btn:active{text-decoration:none;background:var(--accent);border-color:var(--accent);color:#fff}
+@media (prefers-color-scheme: dark){.btn:hover,.btn:focus-visible,.btn:active{color:#11151b}}
+section{padding:30px 0}
+h2{font-size:24px;margin:0 0 18px;color:var(--accent)}
+.lead{font-size:17.5px;max-width:760px}
+.lead p{margin:0 0 12px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:24px 26px;margin-bottom:16px}
+.job-head{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:6px}
+.job-head h3{margin:0;font-size:18px}
+.dates{color:var(--muted);font-size:14.5px}
+.sub{color:var(--muted);margin:0 0 10px;font-size:15px}
+ul{margin:0;padding-left:20px}
+li{margin:5px 0}
+.case{padding:0;overflow:hidden}
+.case .top{padding:24px 26px 6px}
+.tag{display:inline-block;font-size:12.5px;font-weight:600;letter-spacing:.4px;text-transform:uppercase;color:var(--accent-2);margin-bottom:6px}
+.case h3{margin:0 0 4px;font-size:21px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:0;border-top:1px solid var(--line);margin-top:16px}
+.grid > div{padding:18px 26px}
+.grid > div + div{border-left:1px solid var(--line)}
+.grid h4,.full h4{margin:0 0 6px;font-size:13px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted)}
+.full{padding:18px 26px;border-top:1px solid var(--line)}
+.result{background:var(--chip)}
+.links{display:flex;gap:8px;flex-wrap:wrap;padding:16px 26px 22px;border-top:1px solid var(--line)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{background:var(--chip);border-radius:8px;padding:4px 10px;font-size:14.5px}
+.skills{display:grid;grid-template-columns:170px 1fr;gap:12px 18px;align-items:start}
+.skills b{color:var(--muted);font-weight:600;font-size:15px;padding-top:4px}
+footer{padding:30px 0 50px;color:var(--muted);font-size:14px;text-align:center}
+@media (max-width:680px){
+  header{padding:32px 0 20px}
+  .hero{flex-direction:column;align-items:flex-start;gap:18px}
+  .hero img{width:110px;height:110px}
+  h1{font-size:31px}
+  .grid{grid-template-columns:1fr}
+  .grid > div + div{border-left:0;border-top:1px solid var(--line)}
+  .card,.case .top,.grid > div,.full,.links{padding-left:18px;padding-right:18px}
+  .skills{grid-template-columns:1fr;gap:4px}
+  .skills b{padding-top:10px}
+  nav .wrap{gap:16px}
+}
+
+.case{display:grid;grid-template-columns:1fr 1.05fr;gap:26px;align-items:center;padding:24px 26px;overflow:visible}
+.case h3{margin:0 0 12px;font-size:21px}
+.case dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:8px 14px}
+.case dt{font-size:12.5px;font-weight:600;text-transform:uppercase;letter-spacing:.4px;color:var(--muted);padding-top:3px;white-space:nowrap}
+.case dd{margin:0;font-size:15.5px}
+.preview{all:unset;cursor:pointer;display:block;position:relative;border-radius:12px;overflow:hidden;border:1px solid var(--line);background:#fff;transition:transform .2s,box-shadow .2s}
+.preview:hover,.preview:focus-visible{transform:translateY(-3px);box-shadow:0 12px 30px rgba(0,0,0,.12)}
+.preview:focus-visible{outline:3px solid var(--accent-2);outline-offset:2px}
+.frame{display:block;position:relative;width:100%;aspect-ratio:16/10;overflow:hidden}
+.frame iframe{position:absolute;top:0;left:0;width:1280px;height:800px;border:0;transform-origin:0 0;pointer-events:none}
+.open{position:absolute;right:12px;bottom:12px;background:var(--accent);color:#fff;font-size:14px;font-weight:600;padding:7px 14px;border-radius:999px;box-shadow:0 4px 14px rgba(0,0,0,.2)}
+@media (prefers-color-scheme: dark){.open{color:#11151b}}
+.modal{position:fixed;inset:0;z-index:50;background:rgba(10,14,20,.72);display:none;padding:24px}
+.modal.on{display:flex;flex-direction:column}
+.modal-bar{display:flex;align-items:center;gap:12px;color:#fff;padding:0 4px 12px}
+.modal-bar b{flex:1;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.modal-bar a,.modal-bar button{all:unset;cursor:pointer;color:#fff;font-size:14px;padding:6px 12px;border:1px solid rgba(255,255,255,.4);border-radius:999px}
+.modal iframe{flex:1;width:100%;border:0;border-radius:12px;background:#fff}
+@media (max-width:760px){.case{grid-template-columns:1fr}.modal{padding:8px}.case dl{grid-template-columns:1fr;gap:2px}.case dd{margin-bottom:8px}}
+</style>
+</head>
+<body>
+
+<nav><div class="wrap">
+  <b>Анастасия Мышкина</b>
+  <a href="#about">О себе</a>
+  <a href="#cases">Кейсы</a>
+  <a href="#experience">Опыт</a>
+  <a href="#education">Образование</a>
+  <a href="#skills">Навыки</a>
+  <a href="en/" style="margin-left:auto;font-weight:600">EN</a>
+</div></nav>
+
+<header><div class="wrap hero">
+  <img src="photo.jpg" alt="Анастасия Мышкина">
+  <div>
+    <h1>Анастасия Мышкина</h1>
+    <p class="role">Менеджер продукта · AI-сервисы и внутренние B2B-продукты · Санкт-Петербург</p>
+    <div class="contacts">
+      <a class="btn" href="https://t.me/aamyshkina">Telegram</a>
+      <a class="btn" href="mailto:anastasiam1002@gmail.com">anastasiam1002@gmail.com</a>
+      <a class="btn" href="tel:+79213274085">+7 (921) 327-40-85</a>
+      <a class="btn" href="https://www.linkedin.com/in/anastasia-myshkina-46348b37a/">LinkedIn</a>
+    </div>
+  </div>
+</div></header>
+
+<main class="wrap">
+
+<section id="about">
+  <h2>О себе</h2>
+  <div class="lead">
+    <p>Более 3 лет веду IT-продукты: внутренние платформы, клиентские проекты, в том числе AI-продукты. Развиваю продукт от исследования сценариев пользователей и гипотез до внедрения и метрик использования.</p>
+    <p>Одновременно отвечала за четыре внутренних продукта с сотнями активных пользователей и довела до внедрения более 10 проектов для компании и клиентов. Умею держать в фокусе несколько продуктов, команд и заказчиков сразу.</p>
+  </div>
+</section>
+
+<section id="cases">
+  <h2>Кейсы</h2>
+
+  <article class="card case">
+    <div class="case-text">
+      <span class="tag">Продукт и услуга · AI</span>
+      <h3>Корпоративный AI-инструмент</h3>
+      <dl>
+        <dt>Задача</dt><dd>Превратить внутренний AI-сервис компании в универсальную услугу, которую можно настроить под любого клиента.</dd>
+        <dt>Что сделала</dt><dd>Описала продукт в общем виде, продумала логику и архитектуру, собрала прототип, готовые сценарии и кейсы использования.</dd>
+        <dt>Результат</dt><dd>Готовая услуга с презентацией и коммерческим предложением.</dd>
+      </dl>
+    </div>
+    <button class="preview" type="button" data-src="cases/ai-portal.html" data-title="Корпоративный AI-инструмент — презентация услуги" aria-label="Открыть презентацию услуги">
+      <span class="frame"><iframe src="cases/ai-portal.html" tabindex="-1" title="Превью презентации AI-портала"></iframe></span>
+      <span class="open">Открыть презентацию ↗</span>
+    </button>
+  </article>
+
+  <article class="card case">
+    <div class="case-text">
+      <span class="tag">Клиентский проект · пресейл · AI</span>
+      <h3>Речевая аналитика для колл-центра</h3>
+      <dl>
+        <dt>Задача</dt><dd>Клиент — колл-центр крупного ритейлера. Запрос: подробная аналитика звонков + критична безопасность данных.</dd>
+        <dt>Что сделала</dt><dd>Проработала запрос и конкурентный анализ, предложила решение в контуре клиента (on-premise), собрала прототип интерфейса и схему архитектуры.</dd>
+        <dt>Результат</dt><dd>Прототип, архитектура и коммерческое предложение для клиента.</dd>
+      </dl>
+    </div>
+    <button class="preview" type="button" data-src="cases/speech-analytics.html" data-title="Речевая аналитика — прототип кабинета супервайзера" aria-label="Открыть прототип речевой аналитики">
+      <span class="frame"><iframe src="cases/speech-analytics.html" tabindex="-1" title="Превью прототипа речевой аналитики"></iframe></span>
+      <span class="open">Открыть прототип ↗</span>
+    </button>
+  </article>
+
+  <article class="card case">
+    <div class="case-text">
+      <span class="tag">Исследование · ML · HR-tech</span>
+      <h3>Компания как фактор отбора кандидатов</h3>
+      <dl>
+        <dt>Задача</dt><dd>Проверить, становится ли ML-модель скрининга резюме точнее, если учитывать не только кандидата и вакансию, но и работодателя.</dd>
+        <dt>Что сделала</dt><dd>Объединила 150 тыс. откликов с «Работы в России» и 96 тыс. профилей компаний с hh.ru, построила 118 признаков (включая NLP), сравнила модели с признаками компании и без них, проверила статистически.</dd>
+        <dt>Результат</dt><dd>ROC-AUC 0.823 → 0.857, на признаки компании приходится треть вклада в решение модели.</dd>
+      </dl>
+    </div>
+    <button class="preview" type="button" data-src="cases/thesis.html" data-title="Магистерская диссертация — компания в ML-скрининге" aria-label="Открыть кейс диссертации">
+      <span class="frame"><iframe src="cases/thesis.html" tabindex="-1" title="Превью кейса диссертации"></iframe></span>
+      <span class="open">Открыть кейс ↗</span>
+    </button>
+  </article>
+</section>
+
+<section id="experience">
+  <h2>Опыт работы</h2>
+  <div class="card">
+    <div class="job-head"><h3>Девижен, группа компаний RW+ · Проектный менеджер</h3><span class="dates">ноябрь 2025 — сентябрь 2026</span></div>
+    <p class="sub">Развитие внутренних продуктов компании и клиентские AI-проекты</p>
+    <ul>
+      <li><b>AI-сервис для сотрудников.</b> Вывела от MVP до внедрения: LLM, RAG по базе знаний, MCP, роли и SSO. 3–5 новых функций и интеграций в месяц; готовые сценарии для юристов, руководителей и дизайнеров; рутинные консультации ушли в ассистента.</li>
+      <li><b>Корпоративный HR-портал.</b> MAU 900+, 2–3 крупных модуля в квартал, 1000+ закрытых задач. Требования HR, ИБ и поддержки, схемы текущего и целевого процесса (BPMN), миграция со старого портала.</li>
+      <li><b>Платформа Telegram-ботов.</b> 50+ ботов, MAU 600+, 1–2 новых бота в месяц. Анализ использования, бэклог, автоматический сбор NPS вместо ручного.</li>
+      <li><b>Платформа товарных фидов.</b> 150+ потоков, 2–4 новых в месяц; выгрузки SQL из ClickHouse и BigQuery, маппинг полей, 30+ шаблонных фидов.</li>
+      <li><b>Речевая аналитика для колл-центра ритейлера</b> (пресейл). Сценарии супервайзера и метрики звонка, прототип кабинета, локальные транскрибация и LLM в контуре заказчика, коммерческое предложение.</li>
+    </ul>
+  </div>
+  <div class="card">
+    <div class="job-head"><h3><a href="https://realweb.ru">ИА РиалВеб</a>, группа компаний RW+ · Менеджер IT-проектов</h3><span class="dates">февраль 2023 — октябрь 2025</span></div>
+    <ul>
+      <li><b>Клиентский AI-ассистент в Telegram.</b> Дорожная карта, гипотезы и функции по обратной связи пользователей, технические риски; работа с внешней командой разработки.</li>
+      <li><b>Внутренние инструменты.</b> Запросы бизнеса → требования и задачи, прототипы в Figma, приоритизация бэклога.</li>
+      <li><b>Автоматизация юридического процесса.</b> Типовые документы собираются автоматически, без ручной работы.</li>
+      <li><b>AI-воркшопы и пресейл.</b> Воркшопы для 100+ человек, коммерческие предложения.</li>
+    </ul>
+  </div>
+</section>
+
+<section id="education">
+  <h2>Образование</h2>
+  <div class="card">
+    <div class="job-head"><h3>НИУ ВШЭ — Санкт-Петербург</h3></div>
+    <ul>
+      <li>Магистратура «<a href="https://spb.hse.ru/ma/data-analytics">Data Analytics in Economics and Business</a>», 2024–2026.</li>
+      <li>Бакалавриат, Школа экономики и менеджмента, 2020–2024.</li>
+      <li>Майнор Data Science, 2021–2023.</li>
+    </ul>
+
+  </div>
+</section>
+
+<section id="skills">
+  <h2>Навыки</h2>
+  <div class="card skills">
+    <b>Продукт</b>
+    <div class="chips"><span class="chip">исследование пользователей</span><span class="chip">гипотезы</span><span class="chip">MVP</span><span class="chip">дорожная карта</span><span class="chip">бэклог и приоритизация</span><span class="chip">метрики (MAU, NPS)</span><span class="chip">Agile, Scrum</span></div>
+    <b>AI</b>
+    <div class="chips"><span class="chip">LLM</span><span class="chip">RAG</span><span class="chip">MCP</span><span class="chip">AI-агенты</span><span class="chip">промпт-инжиниринг</span></div>
+    <b>Технологии</b>
+    <div class="chips"><span class="chip">API и интеграции</span><span class="chip">SSO</span><span class="chip">on-premise</span></div>
+    <b>Данные</b>
+    <div class="chips"><span class="chip">SQL (ClickHouse, BigQuery)</span><span class="chip">Python</span><span class="chip">R</span><span class="chip">Power BI</span><span class="chip">PIX BI</span></div>
+    <b>Инструменты</b>
+    <div class="chips"><span class="chip">Jira</span><span class="chip">Confluence</span><span class="chip">Figma</span><span class="chip">Miro</span><span class="chip">Cursor</span><span class="chip">HTML-прототипы</span></div>
+    <b>Языки</b>
+    <div class="chips"><span class="chip">английский C1</span></div>
+  </div>
+</section>
+
+</main>
+
+<footer>Анастасия Мышкина · <a href="https://t.me/aamyshkina">Telegram</a> · <a href="mailto:anastasiam1002@gmail.com">Email</a></footer>
+
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+  <div class="modal-bar"><b id="modal-title"></b><a id="modal-new" target="_blank" rel="noopener">В новой вкладке ↗</a><button type="button" id="modal-close">Закрыть ✕</button></div>
+  <iframe id="modal-frame" title="Кейс"></iframe>
+</div>
+<script>
+(function(){
+  function fit(){document.querySelectorAll('.frame').forEach(function(f){var i=f.querySelector('iframe');i.style.transform='scale('+(f.clientWidth/1280)+')';});}
+  window.addEventListener('resize',fit);fit();
+  var m=document.getElementById('modal'),fr=document.getElementById('modal-frame'),last=null;
+  function close(){m.classList.remove('on');fr.src='about:blank';document.body.style.overflow='';if(last)last.focus();}
+  document.querySelectorAll('.preview').forEach(function(b){b.addEventListener('click',function(){
+    last=b;fr.src=b.dataset.src;document.getElementById('modal-title').textContent=b.dataset.title;
+    document.getElementById('modal-new').href=b.dataset.src;m.classList.add('on');document.body.style.overflow='hidden';
+    document.getElementById('modal-close').focus();});});
+  document.getElementById('modal-close').addEventListener('click',close);
+  m.addEventListener('click',function(e){if(e.target===m)close();});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&m.classList.contains('on'))close();});
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Anastasia Myshkina — Product Manager</title>
+<meta name="description" content="Anastasia Myshkina — product manager: AI services and internal B2B products. CV and portfolio.">
+<meta property="og:title" content="Anastasia Myshkina — Product Manager">
+<meta property="og:description" content="AI services and internal B2B products. CV and portfolio.">
+<meta property="og:image" content="../photo.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f7f8fa; --card:#ffffff; --text:#1c2430; --muted:#5d6878; --line:#e3e7ee;
+  --accent:#1f3a5f; --accent-2:#2f6fd0; --chip:#eef2f7;
+}
+@media (prefers-color-scheme: dark){
+  :root{--bg:#11151b; --card:#181e27; --text:#e7ebf1; --muted:#9aa5b5; --line:#2a3340; --accent:#9cc0f0; --accent-2:#79a9f0; --chip:#222b37;}
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.6 Inter,system-ui,-apple-system,"Segoe UI",Arial,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:var(--accent-2);text-decoration:none}
+a:hover{text-decoration:underline}
+.wrap{max-width:920px;margin:0 auto;padding:0 20px}
+nav{position:sticky;top:0;z-index:5;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;gap:22px;align-items:center;height:54px;overflow-x:auto;white-space:nowrap}
+nav b{color:var(--accent);margin-right:auto}
+nav a{color:var(--muted);font-size:15px}
+header{padding:56px 0 36px}
+.hero{display:flex;gap:36px;align-items:center}
+.hero img{width:150px;height:150px;border-radius:50%;object-fit:cover;object-position:50% 20%;flex:none;border:4px solid var(--card);box-shadow:0 4px 18px rgba(0,0,0,.08)}
+h1{font-size:40px;line-height:1.15;margin:0 0 6px;color:var(--accent);letter-spacing:-.5px}
+.role{font-size:19px;color:var(--muted);margin:0 0 18px}
+.contacts{display:flex;flex-wrap:wrap;gap:8px}
+.btn{display:inline-block;padding:7px 14px;border-radius:999px;background:var(--card);border:1px solid var(--line);color:var(--text);font-size:14.5px}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+@media (prefers-color-scheme: dark){.btn.primary{color:#11151b}}
+.btn{transition:background .15s,color .15s,border-color .15s}
+.btn:hover,.btn:focus-visible,.btn:active{text-decoration:none;background:var(--accent);border-color:var(--accent);color:#fff}
+@media (prefers-color-scheme: dark){.btn:hover,.btn:focus-visible,.btn:active{color:#11151b}}
+section{padding:30px 0}
+h2{font-size:24px;margin:0 0 18px;color:var(--accent)}
+.lead{font-size:17.5px;max-width:760px}
+.lead p{margin:0 0 12px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:24px 26px;margin-bottom:16px}
+.job-head{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:6px}
+.job-head h3{margin:0;font-size:18px}
+.dates{color:var(--muted);font-size:14.5px}
+.sub{color:var(--muted);margin:0 0 10px;font-size:15px}
+ul{margin:0;padding-left:20px}
+li{margin:5px 0}
+.case{padding:0;overflow:hidden}
+.case .top{padding:24px 26px 6px}
+.tag{display:inline-block;font-size:12.5px;font-weight:600;letter-spacing:.4px;text-transform:uppercase;color:var(--accent-2);margin-bottom:6px}
+.case h3{margin:0 0 4px;font-size:21px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:0;border-top:1px solid var(--line);margin-top:16px}
+.grid > div{padding:18px 26px}
+.grid > div + div{border-left:1px solid var(--line)}
+.grid h4,.full h4{margin:0 0 6px;font-size:13px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted)}
+.full{padding:18px 26px;border-top:1px solid var(--line)}
+.result{background:var(--chip)}
+.links{display:flex;gap:8px;flex-wrap:wrap;padding:16px 26px 22px;border-top:1px solid var(--line)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{background:var(--chip);border-radius:8px;padding:4px 10px;font-size:14.5px}
+.skills{display:grid;grid-template-columns:170px 1fr;gap:12px 18px;align-items:start}
+.skills b{color:var(--muted);font-weight:600;font-size:15px;padding-top:4px}
+footer{padding:30px 0 50px;color:var(--muted);font-size:14px;text-align:center}
+@media (max-width:680px){
+  header{padding:32px 0 20px}
+  .hero{flex-direction:column;align-items:flex-start;gap:18px}
+  .hero img{width:110px;height:110px}
+  h1{font-size:31px}
+  .grid{grid-template-columns:1fr}
+  .grid > div + div{border-left:0;border-top:1px solid var(--line)}
+  .card,.case .top,.grid > div,.full,.links{padding-left:18px;padding-right:18px}
+  .skills{grid-template-columns:1fr;gap:4px}
+  .skills b{padding-top:10px}
+  nav .wrap{gap:16px}
+}
+
+.case{display:grid;grid-template-columns:1fr 1.05fr;gap:26px;align-items:center;padding:24px 26px;overflow:visible}
+.case h3{margin:0 0 12px;font-size:21px}
+.case dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:8px 14px}
+.case dt{font-size:12.5px;font-weight:600;text-transform:uppercase;letter-spacing:.4px;color:var(--muted);padding-top:3px;white-space:nowrap}
+.case dd{margin:0;font-size:15.5px}
+.preview{all:unset;cursor:pointer;display:block;position:relative;border-radius:12px;overflow:hidden;border:1px solid var(--line);background:#fff;transition:transform .2s,box-shadow .2s}
+.preview:hover,.preview:focus-visible{transform:translateY(-3px);box-shadow:0 12px 30px rgba(0,0,0,.12)}
+.preview:focus-visible{outline:3px solid var(--accent-2);outline-offset:2px}
+.frame{display:block;position:relative;width:100%;aspect-ratio:16/10;overflow:hidden}
+.frame iframe{position:absolute;top:0;left:0;width:1280px;height:800px;border:0;transform-origin:0 0;pointer-events:none}
+.open{position:absolute;right:12px;bottom:12px;background:var(--accent);color:#fff;font-size:14px;font-weight:600;padding:7px 14px;border-radius:999px;box-shadow:0 4px 14px rgba(0,0,0,.2)}
+@media (prefers-color-scheme: dark){.open{color:#11151b}}
+.modal{position:fixed;inset:0;z-index:50;background:rgba(10,14,20,.72);display:none;padding:24px}
+.modal.on{display:flex;flex-direction:column}
+.modal-bar{display:flex;align-items:center;gap:12px;color:#fff;padding:0 4px 12px}
+.modal-bar b{flex:1;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.modal-bar a,.modal-bar button{all:unset;cursor:pointer;color:#fff;font-size:14px;padding:6px 12px;border:1px solid rgba(255,255,255,.4);border-radius:999px}
+.modal iframe{flex:1;width:100%;border:0;border-radius:12px;background:#fff}
+@media (max-width:760px){.case{grid-template-columns:1fr}.modal{padding:8px}.case dl{grid-template-columns:1fr;gap:2px}.case dd{margin-bottom:8px}}
+</style>
+<style>
+.edu-skills{display:grid;grid-template-columns:1fr 1.3fr;gap:16px}
+.edu-skills .card{margin:0}
+.lang{font-size:14px;color:var(--muted);margin-left:auto}
+.lang a{color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:3px 10px}
+@media (max-width:760px){.edu-skills{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<nav><div class="wrap">
+  <b>Anastasia Myshkina</b>
+  <a href="#about">About</a>
+  <a href="#cases">Case studies</a>
+  <a href="#experience">Experience</a>
+  <a href="#education">Education</a>
+  <span class="lang"><a href="../">RU</a></span>
+</div></nav>
+
+<header><div class="wrap hero">
+  <img src="../photo.jpg" alt="Anastasia Myshkina">
+  <div>
+    <h1>Anastasia Myshkina</h1>
+    <p class="role">Product Manager · AI services and internal B2B products · Saint Petersburg, open to relocation</p>
+    <div class="contacts">
+      <a class="btn" href="mailto:anastasiam1002@gmail.com">anastasiam1002@gmail.com</a>
+      <a class="btn" href="https://t.me/aamyshkina">Telegram</a>
+      <a class="btn" href="https://www.linkedin.com/in/anastasia-myshkina-46348b37a/">LinkedIn</a>
+    </div>
+  </div>
+</div></header>
+
+<main class="wrap">
+
+<section id="about">
+  <h2>About</h2>
+  <div class="lead">
+    <p>3+ years building IT products, recently focused on AI. I owned four internal platforms with hundreds of active users in parallel and took more than 10 projects from idea to rollout — from user research and hypotheses to launch and impact metrics.</p>
+  </div>
+</section>
+
+<section id="cases">
+  <h2>Case studies</h2>
+
+  <article class="card case">
+    <div class="case-text">
+      <span class="tag">Product &amp; service · AI</span>
+      <h3>Corporate AI assistant as a service</h3>
+      <dl>
+        <dt>Goal</dt><dd>Turn the company's internal AI assistant into a configurable offering for clients.</dd>
+        <dt>My role</dt><dd>Defined the product, its logic and architecture; built the prototype, use cases and sales materials.</dd>
+        <dt>Result</dt><dd>A ready-to-sell service with a product presentation and commercial proposal.</dd>
+      </dl>
+    </div>
+    <button class="preview" type="button" data-src="cases/ai-portal.html" data-title="Corporate AI assistant — service presentation" aria-label="Open the AI assistant presentation">
+      <span class="frame"><iframe src="cases/ai-portal.html" tabindex="-1" title="AI assistant presentation preview"></iframe></span>
+      <span class="open">Open presentation ↗</span>
+    </button>
+  </article>
+
+  <article class="card case">
+    <div class="case-text">
+      <span class="tag">Client project · presale · AI</span>
+      <h3>Speech analytics for a call centre</h3>
+      <dl>
+        <dt>Goal</dt><dd>A large retailer's call centre needed detailed call analytics, with data never leaving its own infrastructure.</dd>
+        <dt>My role</dt><dd>Scoped the request and competitors, proposed an on-premise solution, built the interface prototype and architecture.</dd>
+        <dt>Result</dt><dd>Prototype, architecture and commercial proposal for the client.</dd>
+      </dl>
+    </div>
+    <button class="preview" type="button" data-src="cases/speech-analytics.html" data-title="Speech analytics — supervisor dashboard prototype" aria-label="Open the speech analytics prototype">
+      <span class="frame"><iframe src="cases/speech-analytics.html" tabindex="-1" title="Speech analytics prototype preview"></iframe></span>
+      <span class="open">Open prototype ↗</span>
+    </button>
+  </article>
+
+  <article class="card case">
+    <div class="case-text">
+      <span class="tag">Research · ML · HR tech</span>
+      <h3>The employer as a factor in candidate screening</h3>
+      <dl>
+        <dt>Goal</dt><dd>Test whether an ML CV-screening model gets more accurate when it also accounts for the employer.</dd>
+        <dt>My role</dt><dd>Joined 150k applications with 96k company profiles, engineered 118 features (incl. NLP), compared models with and without company features.</dd>
+        <dt>Result</dt><dd>ROC-AUC 0.823 → 0.857; company features drive a third of the model's decisions.</dd>
+      </dl>
+    </div>
+    <button class="preview" type="button" data-src="cases/thesis.html" data-title="Master's thesis — the employer in ML screening" aria-label="Open the thesis case study">
+      <span class="frame"><iframe src="cases/thesis.html" tabindex="-1" title="Thesis case study preview"></iframe></span>
+      <span class="open">Open case ↗</span>
+    </button>
+  </article>
+</section>
+
+<section id="experience">
+  <h2>Experience</h2>
+  <div class="card">
+    <div class="job-head"><h3><a href="https://devision.io">Devision</a>, RW+ Group · Project Manager</h3><span class="dates">Nov 2025 – Sep 2026</span></div>
+    <p class="sub">Internal platforms and client AI projects</p>
+    <ul>
+      <li><b>AI assistant for employees</b> — MVP to company-wide rollout (LLM, RAG, MCP); −25% routine support requests.</li>
+      <li><b>Corporate HR portal</b> — MAU 900+, 2–3 major modules per quarter; usage +15%.</li>
+      <li><b>Telegram bot platform</b> — 50+ bots, MAU 600+, automated NPS for 15 clients.</li>
+      <li><b>Product feed platform</b> — 150+ data pipelines, SQL (ClickHouse, BigQuery), 50+ client feeds.</li>
+    </ul>
+  </div>
+  <div class="card">
+    <div class="job-head"><h3><a href="https://realweb.ru">RealWeb</a>, RW+ Group · IT Project Manager</h3><span class="dates">Feb 2023 – Oct 2025</span></div>
+    <ul>
+      <li><b>Client AI assistant in Telegram</b> — roadmap and features driven by user feedback, external dev team.</li>
+      <li><b>Internal tools and legal automation</b> — requirements, Figma prototypes, automated document generation.</li>
+      <li><b>AI workshops</b> for audiences of 100+ and presale proposals.</li>
+    </ul>
+  </div>
+</section>
+
+<section id="education">
+  <div class="edu-skills">
+    <div class="card">
+      <h2 style="font-size:20px;margin-bottom:12px">Education</h2>
+      <p class="sub" style="margin-bottom:6px"><b style="color:var(--text)">HSE University</b>, Saint Petersburg</p>
+      <ul>
+        <li>MSc, <a href="https://spb.hse.ru/ma/data-analytics">Data Analytics in Economics and Business</a>, 2024–2026</li>
+        <li>BSc, School of Economics and Management, 2020–2024</li>
+        <li>Minor in Data Science, 2021–2023</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h2 style="font-size:20px;margin-bottom:12px">Skills</h2>
+      <div class="chips">
+        <span class="chip">user research</span><span class="chip">hypotheses &amp; MVP</span><span class="chip">roadmap &amp; backlog</span><span class="chip">MAU, NPS, adoption</span>
+        <span class="chip">LLM · RAG · MCP</span><span class="chip">APIs &amp; integrations</span><span class="chip">SQL</span><span class="chip">Python</span>
+        <span class="chip">Figma</span><span class="chip">HTML prototypes</span><span class="chip">Jira</span><span class="chip">English C1</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>Anastasia Myshkina · <a href="mailto:anastasiam1002@gmail.com">Email</a> · <a href="https://t.me/aamyshkina">Telegram</a></footer>
+
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+  <div class="modal-bar"><b id="modal-title"></b><a id="modal-new" target="_blank" rel="noopener">Open in new tab ↗</a><button type="button" id="modal-close">Close ✕</button></div>
+  <iframe id="modal-frame" title="Case study"></iframe>
+</div>
+<script>
+(function(){
+  function fit(){document.querySelectorAll('.frame').forEach(function(f){var i=f.querySelector('iframe');i.style.transform='scale('+(f.clientWidth/1280)+')';});}
+  window.addEventListener('resize',fit);fit();
+  var m=document.getElementById('modal'),fr=document.getElementById('modal-frame'),last=null;
+  function close(){m.classList.remove('on');fr.src='about:blank';document.body.style.overflow='';if(last)last.focus();}
+  document.querySelectorAll('.preview').forEach(function(b){b.addEventListener('click',function(){
+    last=b;fr.src=b.dataset.src;document.getElementById('modal-title').textContent=b.dataset.title;
+    document.getElementById('modal-new').href=b.dataset.src;m.classList.add('on');document.body.style.overflow='hidden';
+    document.getElementById('modal-close').focus();});});
+  document.getElementById('modal-close').addEventListener('click',close);
+  m.addEventListener('click',function(e){if(e.target===m)close();});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&m.classList.contains('on'))close();});
+})();
+</script>
+</body>
+</html>
